@@ -51,9 +51,12 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MathLabDataService.h" />
     <ClInclude Include="MathLab.h" />
+    <ClInclude Include="MathLabTypes.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MathLabDataService.cpp" />
     <ClCompile Include="MathLab.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="moc_MathLab.cpp" />
@@ -88,7 +91,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;F:\Qt\Qt4.8\include;.\GeneratedFiles\$(ConfigurationName);F:\Qt\Qt4.8\include\QtCore;F:\Qt\Qt4.8\include\QtGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;F:\Qt\Qt4.8\include;.\GeneratedFiles\$(ConfigurationName);F:\Qt\Qt4.8\include\QtCore;F:\Qt\Qt4.8\include\QtGui;F:\boost_1_75_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>

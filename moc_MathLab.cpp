@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MathLab.h'
 **
-** Created: Tue Feb 9 20:02:40 2021
+** Created: Mon Feb 15 17:53:52 2021
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -78,6 +78,8 @@ void *MathLab::qt_metacast(const char *_clname)
     if (!_clname) return 0;
     if (!strcmp(_clname, qt_meta_stringdata_MathLab))
         return static_cast<void*>(const_cast< MathLab*>(this));
+    if (!strcmp(_clname, "MathLabDataService"))
+        return static_cast< MathLabDataService*>(const_cast< MathLab*>(this));
     return QMainWindow::qt_metacast(_clname);
 }
 

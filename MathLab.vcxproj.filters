@@ -44,9 +44,18 @@
     <ClCompile Include="moc_MathLab.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="MathLabDataService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MathLab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MathLabTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MathLabDataService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

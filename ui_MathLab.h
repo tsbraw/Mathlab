@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MathLab.ui'
 **
-** Created: Tue Feb 9 20:02:51 2021
+** Created: Mon Feb 15 17:46:38 2021
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
