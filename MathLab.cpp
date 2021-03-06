@@ -14,12 +14,17 @@ MathLab::MathLab(QWidget *parent, Qt::WFlags flags, std::string userId)
 	_UserCourseList = GetUserCourseList();
 	_UserType = GetUserType();
 
-	if (_UserType == (int)Teachers)
+	if (_UserType == Teachers)
 	{
 	}
-	else if (_UserType == (int)Students)
+	else if (_UserType == Students)
 	{
 	}
+
+	ui.treeWidget_Class->expandAll();
+
+	connect(ui.treeWidget_Class, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(OnShowCurWeek(QTreeWidgetItem * , int)));
+	connect(ui.lineEdit_Search, SIGNAL(textChanged(QString)), ui.treeWidget_Class, SLOT(OnSearchEdit(QString)));
 }
 
 MathLab::~MathLab()
@@ -27,13 +32,26 @@ MathLab::~MathLab()
 
 }
 
-void MathLab::OnShowCurWeek()
+void MathLab::OnShowCurWeek(QTreeWidgetItem * item, int column)
 {
 	
 	QString ClassroomName = ui.treeWidget_Class->currentItem()->text(0);
 }
 
-void MathLab::OnSearchEdit()
+void MathLab::OnSearchEdit(QString str)
 {
+	int TreeCount = ui.treeWidget_Class->columnCount();
 
+	for (int i = 0; i < TreeCount; i++)
+	{
+		QTreeWidgetItem * item = ui.treeWidget_Class->itemAt(i, 1);
+		if (item->text().contains(str))
+		{
+			item->setHidden(false);
+		}
+		else
+		{
+			item->setHidden(true);
+		}
+	}
 }

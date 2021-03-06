@@ -18,6 +18,10 @@ public:
 	void SetUserType(UsersTpye user);
 
 public:
+	
+	// 初始化数据库服务
+	void Init();
+
 	void ReadDataFromDB(std::string userId);
 
 	void WriteDataToDB(std::string userId);

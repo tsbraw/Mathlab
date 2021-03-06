@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MathLab.h'
 **
-** Created: Mon Feb 15 17:53:52 2021
+** Created: Mon Feb 15 21:15:24 2021
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -31,14 +31,16 @@ static const uint qt_meta_data_MathLab[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-       9,    8,    8,    8, 0x0a,
-      25,    8,    8,    8, 0x0a,
+      21,    9,    8,    8, 0x0a,
+      57,    8,    8,    8, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MathLab[] = {
-    "MathLab\0\0OnShowCurWeek()\0OnSearchEdit()\0"
+    "MathLab\0\0item,column\0"
+    "OnShowCurWeek(QTreeWidgetItem*,int)\0"
+    "OnSearchEdit()\0"
 };
 
 void MathLab::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -47,12 +49,11 @@ void MathLab::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         Q_ASSERT(staticMetaObject.cast(_o));
         MathLab *_t = static_cast<MathLab *>(_o);
         switch (_id) {
-        case 0: _t->OnShowCurWeek(); break;
+        case 0: _t->OnShowCurWeek((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 1: _t->OnSearchEdit(); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObjectExtraData MathLab::staticMetaObjectExtraData = {

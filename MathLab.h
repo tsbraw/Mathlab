@@ -16,15 +16,15 @@ public:
 	~MathLab();
 
 public slots:
-	//显示当前周的实验安排;
-	void OnShowCurWeek();
+	//显示选中教室当前周的实验安排;
+	void OnShowCurWeek(QTreeWidgetItem * item, int column);
 	
-	void OnSearchEdit();
+	void OnSearchEdit(QString str);
 
 private:
 	Ui::MathLabClass ui;
 
-	int _UserType;
+	UsersTpye _UserType;
 
 	CourseInfoList _CourseList;
 };

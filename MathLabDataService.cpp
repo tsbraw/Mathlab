@@ -43,6 +43,11 @@ void MathLabDataService::SetUserType(UsersTpye user)
 	_UserType = user;
 }
 
+void MathLabDataService::Init()
+{
+
+}
+
 void MathLabDataService::ReadDataFromDB(std::string userId)
 {
 
