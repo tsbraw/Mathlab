@@ -35,29 +35,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Mathlab\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MathLab.cpp">
+    <ClCompile Include="Mathlab\MathLab.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="moc_MathLab.cpp">
+    <ClCompile Include="Mathlab\MathLabDataService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathlab\moc_MathLab.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="MathLabDataService.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="MathLab.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MathLabTypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MathLabDataService.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MathLab.qrc">
@@ -65,7 +54,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="MathLab.ui">
+    <ClInclude Include="Mathlab\MathLab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathlab\MathLabDataService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathlab\MathLabTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathlab\ui_MathLab.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Mathlab\MathLab.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>

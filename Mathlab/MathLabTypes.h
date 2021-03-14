@@ -1,6 +1,7 @@
 #pragma once
 
 #include <boost/shared_ptr.hpp>
+#include <QDateTime>
 #include <vector>
 #include <map>
 
@@ -19,28 +20,26 @@ struct CourseInfo
 {
 	CourseInfo()
 		: CourseName("")
-		, ClassName("")
 		, TeacherName("")
-		, TimeWeek(0)
-		, TimeDay(0)
 	{
 
 	}
 
+	//课程名称
 	std::string CourseName;
 
-	std::string ClassName;
-
+	//教师名称
 	std::string TeacherName;
 
-	double TimeWeek;
+	//班级名称
+	std::vector<std::string> ClassNames;
 
-	double TimeDay;
+	//项目说明
+	std::string ProjectInfo;
 
-	double LeftCount;
-
-	double SumCount;
+	//课程日期
+	QDateTime TimeDay;
 };
 typedef boost::shared_ptr<CourseInfo> CourseInfoPtr;
 typedef std::vector<CourseInfoPtr> CourseInfoList;
-typedef std::map<std::string, CourseInfoPtr> UserCourseInfoList;
+typedef std::map<std::string, CourseInfoList> UserCourseInfoList;

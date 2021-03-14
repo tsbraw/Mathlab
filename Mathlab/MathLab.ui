@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MathLabClass</class>
+ <widget class="QMainWindow" name="MathLabClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>838</width>
+    <height>546</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>大学数学实验管理</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout" columnstretch="0,1">
+    <item row="0" column="1">
+     <widget class="QDateEdit" name="dateEdit"/>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>当前日期：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="2">
+     <widget class="QTableWidget" name="tableWidget_MathClass">
+      <row>
+       <property name="text">
+        <string>第一大节</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>第二大节</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string/>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>第三大节</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>第四大节</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string/>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>第五大节</string>
+       </property>
+      </row>
+      <column>
+       <property name="text">
+        <string>周一</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>周二</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>周三</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>周四</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>周五</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>周六</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>周日</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="2">
+     <widget class="QTableView" name="tableView_MathClass"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>838</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>编辑</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>查询</string>
+    </property>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
