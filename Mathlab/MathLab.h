@@ -13,10 +13,21 @@ class MathLab : public QMainWindow, public MathLabDataService
 
 public:
 	MathLab(QWidget *parent = 0, Qt::WFlags flags = 0, std::string userId = "");
+
+	void Init();
+
 	~MathLab();
 
 public slots:
+	void OnDateEditChanged(const QDateTime & dateTime);
 
+
+private:
+
+	// 设置表头内容
+	void SetWeekTime(QDateTime CurTime);
+
+	QStringList FillWeekTime(QDateTime CurTime, int weekday);
 
 private:
 	Ui::MathLabClass ui;
@@ -24,6 +35,9 @@ private:
 	UsersTpye _UserType;
 
 	CourseInfoList _CourseList;
+
+	MathLab *_caa;
 };
 
+typedef boost::shared_ptr<MathLab> MathLabPtr;
 #endif // EMITCRASH_H
