@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'MathLabHp4740.ui'
+** Form generated from reading UI file 'MathLab.ui'
 **
-** Created: Sun Mar 14 19:40:23 2021
+** Created: Tue Mar 30 22:05:43 2021
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MATHLABHP4740_H
-#define MATHLABHP4740_H
+#ifndef UI_MATHLAB_H
+#define UI_MATHLAB_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -22,7 +22,6 @@
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
 #include <QtGui/QStatusBar>
-#include <QtGui/QTableView>
 #include <QtGui/QTableWidget>
 #include <QtGui/QWidget>
 
@@ -33,10 +32,9 @@ class Ui_MathLabClass
 public:
     QWidget *centralwidget;
     QGridLayout *gridLayout;
-    QDateEdit *dateEdit;
     QLabel *label;
+    QDateEdit *dateEdit;
     QTableWidget *tableWidget_MathClass;
-    QTableView *tableView_MathClass;
     QStatusBar *statusbar;
     QMenuBar *menubar;
     QMenu *menu;
@@ -51,15 +49,15 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout = new QGridLayout(centralwidget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        dateEdit = new QDateEdit(centralwidget);
-        dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
-
-        gridLayout->addWidget(dateEdit, 0, 1, 1, 1);
-
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
 
         gridLayout->addWidget(label, 0, 0, 1, 1);
+
+        dateEdit = new QDateEdit(centralwidget);
+        dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
+
+        gridLayout->addWidget(dateEdit, 0, 1, 1, 1);
 
         tableWidget_MathClass = new QTableWidget(centralwidget);
         if (tableWidget_MathClass->columnCount() < 7)
@@ -96,12 +94,7 @@ public:
         tableWidget_MathClass->setVerticalHeaderItem(6, __qtablewidgetitem13);
         tableWidget_MathClass->setObjectName(QString::fromUtf8("tableWidget_MathClass"));
 
-        gridLayout->addWidget(tableWidget_MathClass, 2, 0, 1, 2);
-
-        tableView_MathClass = new QTableView(centralwidget);
-        tableView_MathClass->setObjectName(QString::fromUtf8("tableView_MathClass"));
-
-        gridLayout->addWidget(tableView_MathClass, 1, 0, 1, 2);
+        gridLayout->addWidget(tableWidget_MathClass, 1, 0, 1, 2);
 
         gridLayout->setColumnStretch(1, 1);
         MathLabClass->setCentralWidget(centralwidget);
@@ -165,4 +158,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MATHLABHP4740_H
+#endif // UI_MATHLAB_H

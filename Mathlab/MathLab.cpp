@@ -44,57 +44,18 @@ MathLab::~MathLab()
 
 void MathLab::OnDateEditChanged(const QDateTime & dateTime)
 {
-
+	SetWeekTime(dateTime);
 }
 
 void MathLab::SetWeekTime(QDateTime CurTime)
 {
-	QString current_dateWeek = CurTime.toString("ddd");
-	int weekday = 0;
+	int weekday = 1;
 	//设置表头内容
 	QStringList header;
-	if (current_dateWeek == "周一")
-	{
-		weekday = 1;
 
-		header = FillWeekTime(CurTime, weekday);
-	}
-	else if (current_dateWeek == "周二")
-	{
-		weekday = 2;
-
-		header = FillWeekTime(CurTime, weekday);
-	}
-	else if (current_dateWeek == "周三")
-	{
-		weekday = 3;
-
-		header = FillWeekTime(CurTime, weekday);
-	}
-	else if (current_dateWeek == "周四")
-	{
-		weekday = 4;
-
-		header = FillWeekTime(CurTime, weekday);
-	}
-	else if (current_dateWeek == "周五")
-	{
-		weekday = 5;
-
-		header = FillWeekTime(CurTime, weekday);
-	}
-	else if (current_dateWeek == "周六")
-	{
-		weekday = 6;
-
-		header = FillWeekTime(CurTime, weekday);
-	}
-	else if (current_dateWeek == "周日")
-	{
-		weekday = 7;
-
-		header = FillWeekTime(CurTime, weekday);
-	}
+	weekday = CurTime.date().dayOfWeek();
+	
+	header = FillWeekTime(CurTime, weekday);
 
 	ui.tableWidget_MathClass->setHorizontalHeaderLabels(header);
 }
@@ -111,7 +72,7 @@ QStringList MathLab::FillWeekTime(QDateTime CurTime, int weekday)
 	
 		header << Curr;
 
-		ui.tableWidget_MathClass->itemAt(0, i)->setData(0, QVariant::fromValue(NextTime));
+		//ui.tableWidget_MathClass->itemAt(0, i)->setData(0, QVariant::fromValue(NextTime));
 	}
 	return header;
 }
