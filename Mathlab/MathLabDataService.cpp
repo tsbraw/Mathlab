@@ -30,14 +30,14 @@ void MathLabDataService::SetCourseList(CourseInfoList CourseList)
 	_CourseList = CourseList;
 }
 
-UserCourseInfoList MathLabDataService::GetUserCourseList() const
+DateCourseInfoList MathLabDataService::GetDateCourseList() const
 {
-	return _UserCourseList;
+	return _DateCourseList;
 }
 
-void MathLabDataService::SetUserCourseList(UserCourseInfoList userList)
+void MathLabDataService::SetDateCourseList(DateCourseInfoList dateList)
 {
-	_UserCourseList = userList;
+	_DateCourseList = dateList;
 }
 
 UsersTpye MathLabDataService::GetUserType() const

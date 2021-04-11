@@ -21,6 +21,7 @@ struct CourseInfo
 	CourseInfo()
 		: CourseName("")
 		, TeacherName("")
+		, ProjectInfo("")
 	{
 
 	}
@@ -39,7 +40,10 @@ struct CourseInfo
 
 	//课程日期
 	QDateTime TimeDay;
+
+	//课程序号
+	int CourseIdx;
 };
 typedef boost::shared_ptr<CourseInfo> CourseInfoPtr;
 typedef std::vector<CourseInfoPtr> CourseInfoList;
-typedef std::map<std::string, CourseInfoList> UserCourseInfoList;
+typedef std::map<QDateTime, CourseInfoList> DateCourseInfoList;

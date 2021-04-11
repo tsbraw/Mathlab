@@ -4,6 +4,8 @@
 #include <QVariant>
 #include <QMessageBox>
 
+#include <boost/bind.hpp>
+
 #include "MathLabAddWidget.h"
 #include "MathLab.h"
 
@@ -19,9 +21,8 @@ MathLab::MathLab(QWidget *parent, Qt::WFlags flags, std::string userId)
 
 	InitSystemTray();
 
-	_CourseList.clear();
-
 	connect(ui.pushButton_new, SIGNAL(clicked()), this, SLOT(OnNewCourseClicked()));
+	connect(ui.pushButton_resetDate, SIGNAL(clicked()), this, SLOT(OnResetDateClicked()));
 	connect(ui.dateEdit, SIGNAL(dateTimeChanged( const QDateTime & )), this, SLOT(OnDateEditChanged( const QDateTime & )));
 }
 
@@ -30,27 +31,11 @@ void MathLab::Init()
 	ui.tableWidget_MathClass->horizontalHeader()->setResizeMode(QHeaderView::Stretch); //自适应列宽;
 	ui.tableWidget_MathClass->verticalHeader()->setResizeMode(QHeaderView::Stretch); //自适应行高;
 
-	ui.tableWidget_MathClass->setRowCount(7);
+	ui.tableWidget_MathClass->setRowCount(5);
 	ui.tableWidget_MathClass->setColumnCount(7);
 
 	ui.tableWidget_MathClass->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	ui.tableWidget_MathClass->setSelectionMode(QAbstractItemView::SingleSelection);
-
-	// 初始化行列
-	for (int i = 0; i < 7; i++)
-	{
-		for (int j = 0; j < 7; j ++)
-		{
-			if (j == 2 || j == 5)
-			{
-				continue;
-			}
-
-			QTableWidgetItem *item = new QTableWidgetItem();
-
-			ui.tableWidget_MathClass->setItem(i, j, item);
-		}
-	}
 
 	QDateTime current_date_time = QDateTime::currentDateTime();
 
@@ -61,7 +46,7 @@ void MathLab::Init()
 	pSystemTray = new QSystemTrayIcon(this);
 
 	_CourseList = GetCourseList();
-	_UserCourseList = GetUserCourseList();
+	_DateCourseList = GetDateCourseList();
 	_UserType = GetUserType();
 
 	if (_UserType == Teachers)
@@ -80,22 +65,6 @@ MathLab::~MathLab()
 
 void MathLab::OnDateEditChanged(const QDateTime & dateTime)
 {
-	// 初始化行列
-	for (int i = 0; i < 7; i++)
-	{
-		for (int j = 0; j < 7; j ++)
-		{
-			if (j == 2 || j == 5)
-			{
-				continue;
-			}
-
-			QTableWidgetItem *item = new QTableWidgetItem();
-
-			ui.tableWidget_MathClass->setItem(i, j, item);
-		}
-	}
-
 	SetWeekTime(dateTime);
 }
 
@@ -123,11 +92,10 @@ void MathLab::OnNewCourseClicked()
 			CourseInfoPtr courseInfo = addWidget->GetCourseInfo();
 			QVariant val = ui.tableWidget_MathClass->horizontalHeaderItem(col)->data(0);
 			QDateTime DayTime = val.toDateTime();
-			int we = DayTime.date().dayOfWeek();
 			courseInfo->TimeDay = DayTime;
 
 			_CourseList.push_back(courseInfo);
-
+			_DateCourses[DayTime].push_back(courseInfo);
 			QString tex = courseInfo->CourseName + "\n" + courseInfo->TeacherName;
 
 			item->setText(tex);
@@ -135,6 +103,13 @@ void MathLab::OnNewCourseClicked()
 		}
 	}
 	
+}
+
+void MathLab::OnResetDateClicked()
+{
+	ui.dateEdit->setDateTime(QDateTime::currentDateTime());
+
+	SetWeekTime(ui.dateEdit->dateTime());
 }
 
 void MathLab::closeEvent(QCloseEvent * event)
@@ -166,20 +141,44 @@ void MathLab::SetWeekTime(QDateTime CurTime)
 QStringList MathLab::FillWeekTime(QDateTime CurTime, int weekday)
 {
 	QStringList header;
-	for (int i = 1; i <= 7; i++)
+	for (int col = 1; col <= 7; col++)
 	{
-		QDateTime NextTime = CurTime.addDays(i - weekday);
+		QDateTime NextTime = CurTime.addDays(col - weekday);
 		QString next_dateWeek = NextTime.toString("ddd");
 		QString next_date = NextTime.toString("yyyy.MM.dd");
 		QString Curr = next_dateWeek + "\n" + next_date;
 	
 		header << Curr;
 
-		if (QTableWidgetItem * ia = ui.tableWidget_MathClass->horizontalHeaderItem(i))
+		if (QTableWidgetItem * ia = ui.tableWidget_MathClass->horizontalHeaderItem(col))
 		{
-			ui.tableWidget_MathClass->horizontalHeaderItem(i)->setData(0, QVariant::fromValue(NextTime));
+			ui.tableWidget_MathClass->horizontalHeaderItem(col)->setData(0, QVariant::fromValue(NextTime));
 		}
 		
+		CourseInfoList dateCourses;
+		if (_DateCourses.size())
+		{
+			dateCourses = _DateCourses[NextTime];
+		}
+
+		// 填充单元格内容
+		for (int row = 0; row < 5; row++)
+		{
+			QTableWidgetItem *item = new QTableWidgetItem();
+
+			CourseInfoList::iterator courseIt = std::find_if(dateCourses.begin(), dateCourses.end(), boost::bind(&CourseInfo::CourseIdx, _1) == row);
+			if (courseIt != dateCourses.end())
+			{
+				CourseInfoPtr courseInfo = *courseIt;
+				QString tex = courseInfo->CourseName + "\n" + courseInfo->TeacherName;
+
+				item->setText(tex);
+				item->setData(0, QVariant::fromValue(courseInfo));
+			}
+
+			ui.tableWidget_MathClass->setItem(row, col, item);
+		}
+
 	}
 	return header;
 }

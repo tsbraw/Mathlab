@@ -20,14 +20,25 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="label_date">
       <property name="text">
-       <string>当前日期：</string>
+       <string>日期：</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="1" colspan="3">
-     <widget class="QDateEdit" name="dateEdit"/>
+    <item row="2" column="3">
+     <widget class="QPushButton" name="pushButton_del">
+      <property name="text">
+       <string>删除</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QPushButton" name="pushButton_new">
+      <property name="text">
+       <string>新增</string>
+      </property>
+     </widget>
     </item>
     <item row="1" column="0" colspan="4">
      <widget class="QTableWidget" name="tableWidget_MathClass">
@@ -43,22 +54,12 @@
       </row>
       <row>
        <property name="text">
-        <string/>
-       </property>
-      </row>
-      <row>
-       <property name="text">
         <string>第三大节</string>
        </property>
       </row>
       <row>
        <property name="text">
         <string>第四大节</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string/>
        </property>
       </row>
       <row>
@@ -116,17 +117,13 @@
       </property>
      </spacer>
     </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="pushButton_new">
-      <property name="text">
-       <string>新增</string>
-      </property>
-     </widget>
+    <item row="0" column="1" colspan="2">
+     <widget class="QDateEdit" name="dateEdit"/>
     </item>
-    <item row="2" column="3">
-     <widget class="QPushButton" name="pushButton_del">
+    <item row="0" column="3">
+     <widget class="QPushButton" name="pushButton_resetDate">
       <property name="text">
-       <string>删除</string>
+       <string>还原</string>
       </property>
      </widget>
     </item>
@@ -142,18 +139,18 @@
      <height>26</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="menu_edit">
     <property name="title">
      <string>编辑</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menu_2">
+   <widget class="QMenu" name="menu_search">
     <property name="title">
      <string>查询</string>
     </property>
    </widget>
-   <addaction name="menu"/>
-   <addaction name="menu_2"/>
+   <addaction name="menu_edit"/>
+   <addaction name="menu_search"/>
   </widget>
  </widget>
  <resources>

@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'MathLabAddWidgetp14620.ui'
+** Form generated from reading UI file 'MathLabAddWidgetp14952.ui'
 **
-** Created: Wed Apr 7 21:11:40 2021
+** Created: Sun Apr 11 23:40:46 2021
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MATHLABADDWIDGETP14620_H
-#define MATHLABADDWIDGETP14620_H
+#ifndef MATHLABADDWIDGETP14952_H
+#define MATHLABADDWIDGETP14952_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -44,7 +44,7 @@ public:
     {
         if (MathLabAddWidget->objectName().isEmpty())
             MathLabAddWidget->setObjectName(QString::fromUtf8("MathLabAddWidget"));
-        MathLabAddWidget->resize(535, 251);
+        MathLabAddWidget->resize(425, 162);
         gridLayout = new QGridLayout(MathLabAddWidget);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -128,4 +128,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MATHLABADDWIDGETP14620_H
+#endif // MATHLABADDWIDGETP14952_H

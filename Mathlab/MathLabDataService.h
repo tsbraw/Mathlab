@@ -12,8 +12,8 @@ public:
 	CourseInfoList GetCourseList() const;
 	void SetCourseList(CourseInfoList CourseList);
 
-	UserCourseInfoList GetUserCourseList() const;
-	void SetUserCourseList(UserCourseInfoList userList);
+	DateCourseInfoList GetDateCourseList() const;
+	void SetDateCourseList(DateCourseInfoList dateList);
 
 	UsersTpye GetUserType() const;
 	void SetUserType(UsersTpye user);
@@ -31,7 +31,7 @@ public:
 	void WriteDataToDB(std::string userId);
 
 
-	UserCourseInfoList _UserCourseList;
+	DateCourseInfoList _DateCourseList;
 
 private:
 	CourseInfoList _CourseList;

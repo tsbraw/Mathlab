@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'MathLabp13960.ui'
+** Form generated from reading UI file 'MathLabHp9524.ui'
 **
-** Created: Wed Apr 7 20:03:02 2021
+** Created: Sun Apr 11 23:41:03 2021
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MATHLABP13960_H
-#define MATHLABP13960_H
+#ifndef MATHLABHP9524_H
+#define MATHLABHP9524_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -34,38 +34,44 @@ class Ui_MathLabClass
 public:
     QWidget *centralwidget;
     QGridLayout *gridLayout;
-    QLabel *label;
-    QDateEdit *dateEdit;
+    QLabel *label_date;
+    QPushButton *pushButton_del;
+    QPushButton *pushButton_new;
     QTableWidget *tableWidget_MathClass;
     QSpacerItem *horizontalSpacer;
-    QPushButton *pushButton_new;
-    QPushButton *pushButton_del;
+    QDateEdit *dateEdit;
+    QPushButton *pushButton_resetDate;
     QStatusBar *statusbar;
     QMenuBar *menubar;
-    QMenu *menu;
-    QMenu *menu_2;
+    QMenu *menu_edit;
+    QMenu *menu_search;
 
     void setupUi(QMainWindow *MathLabClass)
     {
         if (MathLabClass->objectName().isEmpty())
             MathLabClass->setObjectName(QString::fromUtf8("MathLabClass"));
-        MathLabClass->resize(838, 546);
+        MathLabClass->resize(838, 526);
         QIcon icon;
-        icon.addFile(QString::fromUtf8(":/Mathlab/lab.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QString::fromUtf8(":/EmitCrash/lab.png"), QSize(), QIcon::Normal, QIcon::Off);
         MathLabClass->setWindowIcon(icon);
         centralwidget = new QWidget(MathLabClass);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout = new QGridLayout(centralwidget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        label = new QLabel(centralwidget);
-        label->setObjectName(QString::fromUtf8("label"));
+        label_date = new QLabel(centralwidget);
+        label_date->setObjectName(QString::fromUtf8("label_date"));
 
-        gridLayout->addWidget(label, 0, 0, 1, 1);
+        gridLayout->addWidget(label_date, 0, 0, 1, 1);
 
-        dateEdit = new QDateEdit(centralwidget);
-        dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
+        pushButton_del = new QPushButton(centralwidget);
+        pushButton_del->setObjectName(QString::fromUtf8("pushButton_del"));
 
-        gridLayout->addWidget(dateEdit, 0, 1, 1, 3);
+        gridLayout->addWidget(pushButton_del, 2, 3, 1, 1);
+
+        pushButton_new = new QPushButton(centralwidget);
+        pushButton_new->setObjectName(QString::fromUtf8("pushButton_new"));
+
+        gridLayout->addWidget(pushButton_new, 2, 2, 1, 1);
 
         tableWidget_MathClass = new QTableWidget(centralwidget);
         if (tableWidget_MathClass->columnCount() < 7)
@@ -84,8 +90,8 @@ public:
         tableWidget_MathClass->setHorizontalHeaderItem(5, __qtablewidgetitem5);
         QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
         tableWidget_MathClass->setHorizontalHeaderItem(6, __qtablewidgetitem6);
-        if (tableWidget_MathClass->rowCount() < 7)
-            tableWidget_MathClass->setRowCount(7);
+        if (tableWidget_MathClass->rowCount() < 5)
+            tableWidget_MathClass->setRowCount(5);
         QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
         tableWidget_MathClass->setVerticalHeaderItem(0, __qtablewidgetitem7);
         QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
@@ -96,10 +102,6 @@ public:
         tableWidget_MathClass->setVerticalHeaderItem(3, __qtablewidgetitem10);
         QTableWidgetItem *__qtablewidgetitem11 = new QTableWidgetItem();
         tableWidget_MathClass->setVerticalHeaderItem(4, __qtablewidgetitem11);
-        QTableWidgetItem *__qtablewidgetitem12 = new QTableWidgetItem();
-        tableWidget_MathClass->setVerticalHeaderItem(5, __qtablewidgetitem12);
-        QTableWidgetItem *__qtablewidgetitem13 = new QTableWidgetItem();
-        tableWidget_MathClass->setVerticalHeaderItem(6, __qtablewidgetitem13);
         tableWidget_MathClass->setObjectName(QString::fromUtf8("tableWidget_MathClass"));
 
         gridLayout->addWidget(tableWidget_MathClass, 1, 0, 1, 4);
@@ -108,15 +110,15 @@ public:
 
         gridLayout->addItem(horizontalSpacer, 2, 1, 1, 1);
 
-        pushButton_new = new QPushButton(centralwidget);
-        pushButton_new->setObjectName(QString::fromUtf8("pushButton_new"));
+        dateEdit = new QDateEdit(centralwidget);
+        dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
 
-        gridLayout->addWidget(pushButton_new, 2, 2, 1, 1);
+        gridLayout->addWidget(dateEdit, 0, 1, 1, 2);
 
-        pushButton_del = new QPushButton(centralwidget);
-        pushButton_del->setObjectName(QString::fromUtf8("pushButton_del"));
+        pushButton_resetDate = new QPushButton(centralwidget);
+        pushButton_resetDate->setObjectName(QString::fromUtf8("pushButton_resetDate"));
 
-        gridLayout->addWidget(pushButton_del, 2, 3, 1, 1);
+        gridLayout->addWidget(pushButton_resetDate, 0, 3, 1, 1);
 
         MathLabClass->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MathLabClass);
@@ -125,14 +127,14 @@ public:
         menubar = new QMenuBar(MathLabClass);
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 838, 26));
-        menu = new QMenu(menubar);
-        menu->setObjectName(QString::fromUtf8("menu"));
-        menu_2 = new QMenu(menubar);
-        menu_2->setObjectName(QString::fromUtf8("menu_2"));
+        menu_edit = new QMenu(menubar);
+        menu_edit->setObjectName(QString::fromUtf8("menu_edit"));
+        menu_search = new QMenu(menubar);
+        menu_search->setObjectName(QString::fromUtf8("menu_search"));
         MathLabClass->setMenuBar(menubar);
 
-        menubar->addAction(menu->menuAction());
-        menubar->addAction(menu_2->menuAction());
+        menubar->addAction(menu_edit->menuAction());
+        menubar->addAction(menu_search->menuAction());
 
         retranslateUi(MathLabClass);
 
@@ -142,7 +144,9 @@ public:
     void retranslateUi(QMainWindow *MathLabClass)
     {
         MathLabClass->setWindowTitle(QApplication::translate("MathLabClass", "\345\244\247\345\255\246\346\225\260\345\255\246\345\256\236\351\252\214\347\256\241\347\220\206", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("MathLabClass", "\345\275\223\345\211\215\346\227\245\346\234\237\357\274\232", 0, QApplication::UnicodeUTF8));
+        label_date->setText(QApplication::translate("MathLabClass", "\346\227\245\346\234\237\357\274\232", 0, QApplication::UnicodeUTF8));
+        pushButton_del->setText(QApplication::translate("MathLabClass", "\345\210\240\351\231\244", 0, QApplication::UnicodeUTF8));
+        pushButton_new->setText(QApplication::translate("MathLabClass", "\346\226\260\345\242\236", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem = tableWidget_MathClass->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MathLabClass", "\345\221\250\344\270\200", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget_MathClass->horizontalHeaderItem(1);
@@ -161,16 +165,15 @@ public:
         ___qtablewidgetitem7->setText(QApplication::translate("MathLabClass", "\347\254\254\344\270\200\345\244\247\350\212\202", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem8 = tableWidget_MathClass->verticalHeaderItem(1);
         ___qtablewidgetitem8->setText(QApplication::translate("MathLabClass", "\347\254\254\344\272\214\345\244\247\350\212\202", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem9 = tableWidget_MathClass->verticalHeaderItem(3);
+        QTableWidgetItem *___qtablewidgetitem9 = tableWidget_MathClass->verticalHeaderItem(2);
         ___qtablewidgetitem9->setText(QApplication::translate("MathLabClass", "\347\254\254\344\270\211\345\244\247\350\212\202", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem10 = tableWidget_MathClass->verticalHeaderItem(4);
+        QTableWidgetItem *___qtablewidgetitem10 = tableWidget_MathClass->verticalHeaderItem(3);
         ___qtablewidgetitem10->setText(QApplication::translate("MathLabClass", "\347\254\254\345\233\233\345\244\247\350\212\202", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem11 = tableWidget_MathClass->verticalHeaderItem(6);
+        QTableWidgetItem *___qtablewidgetitem11 = tableWidget_MathClass->verticalHeaderItem(4);
         ___qtablewidgetitem11->setText(QApplication::translate("MathLabClass", "\347\254\254\344\272\224\345\244\247\350\212\202", 0, QApplication::UnicodeUTF8));
-        pushButton_new->setText(QApplication::translate("MathLabClass", "\346\226\260\345\242\236", 0, QApplication::UnicodeUTF8));
-        pushButton_del->setText(QApplication::translate("MathLabClass", "\345\210\240\351\231\244", 0, QApplication::UnicodeUTF8));
-        menu->setTitle(QApplication::translate("MathLabClass", "\347\274\226\350\276\221", 0, QApplication::UnicodeUTF8));
-        menu_2->setTitle(QApplication::translate("MathLabClass", "\346\237\245\350\257\242", 0, QApplication::UnicodeUTF8));
+        pushButton_resetDate->setText(QApplication::translate("MathLabClass", "\350\277\230\345\216\237", 0, QApplication::UnicodeUTF8));
+        menu_edit->setTitle(QApplication::translate("MathLabClass", "\347\274\226\350\276\221", 0, QApplication::UnicodeUTF8));
+        menu_search->setTitle(QApplication::translate("MathLabClass", "\346\237\245\350\257\242", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
@@ -181,4 +184,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MATHLABP13960_H
+#endif // MATHLABHP9524_H
