@@ -1,4 +1,4 @@
-#include <QtSql/QSqlDatabase>
+
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlError>
 #include <QMessageBox>
@@ -57,7 +57,7 @@ void MathLabDataService::Init()
 
 bool MathLabDataService::InitDB()
 {
-	QSqlDatabase _DataBase = QSqlDatabase::addDatabase("QOCI");
+	_DataBase = QSqlDatabase::addDatabase("QOCI");
 
 	_DataBase.setHostName(_Host);
 	_DataBase.setPort(_Port);
@@ -100,7 +100,14 @@ bool MathLabDataService::InitDB()
 
 void MathLabDataService::ReadDataFromDB(std::string userId)
 {
+	if (_DataBase.isOpen())
+	{
+		QSqlQuery query(_DataBase);
 
+		query.prepare("CALL READ_DATA()");
+
+
+	}
 }
 
 void MathLabDataService::WriteDataToDB(std::string userId)

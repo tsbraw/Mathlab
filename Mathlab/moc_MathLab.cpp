@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MathLab.h'
 **
-** Created: Tue Mar 30 22:05:53 2021
+** Created: Wed Apr 7 20:51:34 2021
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MathLab[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -32,12 +32,14 @@ static const uint qt_meta_data_MathLab[] = {
 
  // slots: signature, parameters, type, tag, flags
       18,    9,    8,    8, 0x0a,
+      47,    8,    8,    8, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MathLab[] = {
     "MathLab\0\0dateTime\0OnDateEditChanged(QDateTime)\0"
+    "OnNewCourseClicked()\0"
 };
 
 void MathLab::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -47,6 +49,7 @@ void MathLab::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         MathLab *_t = static_cast<MathLab *>(_o);
         switch (_id) {
         case 0: _t->OnDateEditChanged((*reinterpret_cast< const QDateTime(*)>(_a[1]))); break;
+        case 1: _t->OnNewCourseClicked(); break;
         default: ;
         }
     }
@@ -86,9 +89,9 @@ int MathLab::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 2;
     }
     return _id;
 }

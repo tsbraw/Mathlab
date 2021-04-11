@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QtSql/QSqlDatabase>
 #include "MathLabTypes.h"
 
 class MathLabDataService
@@ -42,5 +43,7 @@ private:
 	QString _DBName;
 	QString _User;
 	QString _Pwd;
+
+	QSqlDatabase _DataBase;
 };
 

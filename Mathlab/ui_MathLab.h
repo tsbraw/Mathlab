@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'MathLab.ui'
+** Form generated from reading UI file 'MathLabp13960.ui'
 **
-** Created: Tue Mar 30 22:05:43 2021
+** Created: Wed Apr 7 20:03:02 2021
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_MATHLAB_H
-#define UI_MATHLAB_H
+#ifndef MATHLABP13960_H
+#define MATHLABP13960_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -21,6 +21,8 @@
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
+#include <QtGui/QPushButton>
+#include <QtGui/QSpacerItem>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTableWidget>
 #include <QtGui/QWidget>
@@ -35,6 +37,9 @@ public:
     QLabel *label;
     QDateEdit *dateEdit;
     QTableWidget *tableWidget_MathClass;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *pushButton_new;
+    QPushButton *pushButton_del;
     QStatusBar *statusbar;
     QMenuBar *menubar;
     QMenu *menu;
@@ -45,6 +50,9 @@ public:
         if (MathLabClass->objectName().isEmpty())
             MathLabClass->setObjectName(QString::fromUtf8("MathLabClass"));
         MathLabClass->resize(838, 546);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/Mathlab/lab.png"), QSize(), QIcon::Normal, QIcon::Off);
+        MathLabClass->setWindowIcon(icon);
         centralwidget = new QWidget(MathLabClass);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout = new QGridLayout(centralwidget);
@@ -57,7 +65,7 @@ public:
         dateEdit = new QDateEdit(centralwidget);
         dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
 
-        gridLayout->addWidget(dateEdit, 0, 1, 1, 1);
+        gridLayout->addWidget(dateEdit, 0, 1, 1, 3);
 
         tableWidget_MathClass = new QTableWidget(centralwidget);
         if (tableWidget_MathClass->columnCount() < 7)
@@ -94,9 +102,22 @@ public:
         tableWidget_MathClass->setVerticalHeaderItem(6, __qtablewidgetitem13);
         tableWidget_MathClass->setObjectName(QString::fromUtf8("tableWidget_MathClass"));
 
-        gridLayout->addWidget(tableWidget_MathClass, 1, 0, 1, 2);
+        gridLayout->addWidget(tableWidget_MathClass, 1, 0, 1, 4);
 
-        gridLayout->setColumnStretch(1, 1);
+        horizontalSpacer = new QSpacerItem(531, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer, 2, 1, 1, 1);
+
+        pushButton_new = new QPushButton(centralwidget);
+        pushButton_new->setObjectName(QString::fromUtf8("pushButton_new"));
+
+        gridLayout->addWidget(pushButton_new, 2, 2, 1, 1);
+
+        pushButton_del = new QPushButton(centralwidget);
+        pushButton_del->setObjectName(QString::fromUtf8("pushButton_del"));
+
+        gridLayout->addWidget(pushButton_del, 2, 3, 1, 1);
+
         MathLabClass->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MathLabClass);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -146,6 +167,8 @@ public:
         ___qtablewidgetitem10->setText(QApplication::translate("MathLabClass", "\347\254\254\345\233\233\345\244\247\350\212\202", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem11 = tableWidget_MathClass->verticalHeaderItem(6);
         ___qtablewidgetitem11->setText(QApplication::translate("MathLabClass", "\347\254\254\344\272\224\345\244\247\350\212\202", 0, QApplication::UnicodeUTF8));
+        pushButton_new->setText(QApplication::translate("MathLabClass", "\346\226\260\345\242\236", 0, QApplication::UnicodeUTF8));
+        pushButton_del->setText(QApplication::translate("MathLabClass", "\345\210\240\351\231\244", 0, QApplication::UnicodeUTF8));
         menu->setTitle(QApplication::translate("MathLabClass", "\347\274\226\350\276\221", 0, QApplication::UnicodeUTF8));
         menu_2->setTitle(QApplication::translate("MathLabClass", "\346\237\245\350\257\242", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
@@ -158,4 +181,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // UI_MATHLAB_H
+#endif // MATHLABP13960_H

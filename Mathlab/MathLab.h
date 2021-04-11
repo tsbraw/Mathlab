@@ -2,6 +2,8 @@
 #define EMITCRASH_H
 
 #include <QtGui/QMainWindow>
+#include <QSystemTrayIcon>
+#include <QCloseEvent>
 
 #include "MathLabTypes.h"
 #include "MathLabDataService.h"
@@ -21,6 +23,11 @@ public:
 public slots:
 	void OnDateEditChanged(const QDateTime & dateTime);
 
+	void OnNewCourseClicked();
+
+	virtual void closeEvent(QCloseEvent * event);
+
+	void on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason);
 
 private:
 
@@ -29,6 +36,8 @@ private:
 
 	QStringList FillWeekTime(QDateTime CurTime, int weekday);
 
+	void InitSystemTray();
+
 private:
 	Ui::MathLabClass ui;
 
@@ -36,7 +45,7 @@ private:
 
 	CourseInfoList _CourseList;
 
-	MathLab *_caa;
+	QSystemTrayIcon *pSystemTray;
 };
 
 typedef boost::shared_ptr<MathLab> MathLabPtr;

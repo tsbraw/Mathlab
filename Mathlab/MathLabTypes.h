@@ -26,16 +26,16 @@ struct CourseInfo
 	}
 
 	//课程名称
-	std::string CourseName;
+	QString CourseName;
 
 	//教师名称
-	std::string TeacherName;
+	QString TeacherName;
 
 	//班级名称
-	std::vector<std::string> ClassNames;
+	std::vector<QString> ClassNames;
 
 	//项目说明
-	std::string ProjectInfo;
+	QString ProjectInfo;
 
 	//课程日期
 	QDateTime TimeDay;
