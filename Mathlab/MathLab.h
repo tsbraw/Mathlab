@@ -27,6 +27,9 @@ public slots:
 	// 点击新建课程按钮
 	void OnNewCourseClicked();
 
+	// 点击删除课程按钮
+	void OnDelCourseClicked();
+
 	// 还原当前时间
 	void OnResetDateClicked();
 
@@ -52,7 +55,6 @@ private:
 	UsersTpye _UserType;
 
 	// 课程信息列表
-	CourseInfoList _CourseList;
 	DateCourseInfoList _DateCourses;
 
 	// 系统托盘

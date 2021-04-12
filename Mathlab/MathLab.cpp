@@ -22,6 +22,7 @@ MathLab::MathLab(QWidget *parent, Qt::WFlags flags, std::string userId)
 	InitSystemTray();
 
 	connect(ui.pushButton_new, SIGNAL(clicked()), this, SLOT(OnNewCourseClicked()));
+	connect(ui.pushButton_del, SIGNAL(clicked()), this, SLOT(OnDelCourseClicked()));
 	connect(ui.pushButton_resetDate, SIGNAL(clicked()), this, SLOT(OnResetDateClicked()));
 	connect(ui.dateEdit, SIGNAL(dateTimeChanged( const QDateTime & )), this, SLOT(OnDateEditChanged( const QDateTime & )));
 }
@@ -45,7 +46,6 @@ void MathLab::Init()
 
 	pSystemTray = new QSystemTrayIcon(this);
 
-	_CourseList = GetCourseList();
 	_DateCourseList = GetDateCourseList();
 	_UserType = GetUserType();
 
@@ -70,7 +70,7 @@ void MathLab::OnDateEditChanged(const QDateTime & dateTime)
 
 void MathLab::OnNewCourseClicked()
 {
-	QTableWidgetItem * item = ui.tableWidget_MathClass->item(1,1)/*ui.tableWidget_MathClass->currentItem()*/;
+	QTableWidgetItem * item = ui.tableWidget_MathClass->currentItem();
 
 	if (!item)
 	{
@@ -94,7 +94,6 @@ void MathLab::OnNewCourseClicked()
 			QDateTime DayTime = val.toDateTime();
 			courseInfo->TimeDay = DayTime;
 
-			_CourseList.push_back(courseInfo);
 			_DateCourses[DayTime].push_back(courseInfo);
 			QString tex = courseInfo->CourseName + "\n" + courseInfo->TeacherName;
 
@@ -103,6 +102,36 @@ void MathLab::OnNewCourseClicked()
 		}
 	}
 	
+}
+
+void MathLab::OnDelCourseClicked()
+{
+	QTableWidgetItem * item = ui.tableWidget_MathClass->currentItem();
+
+	if (!item)
+	{
+		QMessageBox::warning(this, QString::fromLocal8Bit("未选中单元格"),  QString::fromLocal8Bit("请选择删除课程对应的单元格！")
+			, QMessageBox::Ok, QMessageBox::Cancel);
+	}
+	else if (item->text().isEmpty())
+	{
+		QMessageBox::warning(this, QString::fromLocal8Bit("无课程安排"),  QString::fromLocal8Bit("当前时间段无课程安排！")
+			, QMessageBox::Ok, QMessageBox::Cancel);
+	}
+	else
+	{
+		CourseInfoPtr courseInfo = item->data(0).value<CourseInfoPtr>();
+		QVariant val = ui.tableWidget_MathClass->horizontalHeaderItem(item->column())->data(0);
+		QDateTime DayTime = val.toDateTime();
+		CourseInfoList::iterator courseIt = std::find_if(_DateCourses[DayTime].begin(), _DateCourses[DayTime].end(), boost::bind(&CourseInfo::CourseIdx, _1) == courseInfo->CourseIdx);
+		if (courseIt != _DateCourses[DayTime].end())
+		{
+			courseIt = _DateCourses[DayTime].erase(courseIt);
+		}
+
+		item->setText("");
+		item->data(0).clear();
+	}
 }
 
 void MathLab::OnResetDateClicked()
