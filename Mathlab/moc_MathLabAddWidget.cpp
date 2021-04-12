@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MathLabAddWidget.h'
 **
-** Created: Wed Apr 7 20:45:32 2021
+** Created: Tue Apr 13 00:13:35 2021
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -58,7 +58,7 @@ const QMetaObjectExtraData MathLabAddWidget::staticMetaObjectExtraData = {
 };
 
 const QMetaObject MathLabAddWidget::staticMetaObject = {
-    { &QWidget::staticMetaObject, qt_meta_stringdata_MathLabAddWidget,
+    { &QDialog::staticMetaObject, qt_meta_stringdata_MathLabAddWidget,
       qt_meta_data_MathLabAddWidget, &staticMetaObjectExtraData }
 };
 
@@ -76,12 +76,12 @@ void *MathLabAddWidget::qt_metacast(const char *_clname)
     if (!_clname) return 0;
     if (!strcmp(_clname, qt_meta_stringdata_MathLabAddWidget))
         return static_cast<void*>(const_cast< MathLabAddWidget*>(this));
-    return QWidget::qt_metacast(_clname);
+    return QDialog::qt_metacast(_clname);
 }
 
 int MathLabAddWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QWidget::qt_metacall(_c, _id, _a);
+    _id = QDialog::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {

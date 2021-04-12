@@ -33,6 +33,25 @@ CourseInfoPtr MathLabAddWidget::GetCourseInfo()
 	return _newCourse;
 }
 
+void MathLabAddWidget::SetCourseInfo(CourseInfoPtr courseInfo)
+{
+	if (courseInfo)
+	{
+		_newCourse = courseInfo;
+	}
+	ui->lineEdit_Course->setText(courseInfo->CourseName);
+	ui->lineEdit_Teacher->setText(courseInfo->TeacherName);
+
+	QStringList Classes;
+	for (int i = 0; i < courseInfo->ClassNames.size(); i++)
+	{
+		Classes.push_back(courseInfo->ClassNames.at(i));
+	}
+	QString ClassStr = Classes.join(";");
+	ui->lineEdit_Classes->setText(ClassStr);
+	ui->lineEdit_instruction->setText(courseInfo->ProjectInfo);
+}
+
 void MathLabAddWidget::On_pushButton_Ok_clicked()
 {
 	if (_newCourse)

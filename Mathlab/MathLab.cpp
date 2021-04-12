@@ -21,9 +21,12 @@ MathLab::MathLab(QWidget *parent, Qt::WFlags flags, std::string userId)
 
 	InitSystemTray();
 
+	setWindowIcon(QIcon(":/Icon/mathLab.ico"));
+
 	connect(ui.pushButton_new, SIGNAL(clicked()), this, SLOT(OnNewCourseClicked()));
 	connect(ui.pushButton_del, SIGNAL(clicked()), this, SLOT(OnDelCourseClicked()));
 	connect(ui.pushButton_resetDate, SIGNAL(clicked()), this, SLOT(OnResetDateClicked()));
+	connect(ui.tableWidget_MathClass, SIGNAL(itemDoubleClicked(QTableWidgetItem *)), this, SLOT(OnTableWidgetDouble(QTableWidgetItem*)));
 	connect(ui.dateEdit, SIGNAL(dateTimeChanged( const QDateTime & )), this, SLOT(OnDateEditChanged( const QDateTime & )));
 }
 
@@ -43,6 +46,8 @@ void MathLab::Init()
 	ui.dateEdit->setCalendarPopup(true);
 	ui.dateEdit->setDateTime(current_date_time);
 	SetWeekTime(current_date_time);
+
+	UpdateTable();
 
 	pSystemTray = new QSystemTrayIcon(this);
 
@@ -84,24 +89,27 @@ void MathLab::OnNewCourseClicked()
 	}
 	else
 	{
-		MathLabAddWidget * addWidget = new MathLabAddWidget();
+		OnNewCourse(item);
 
-		if (!addWidget->exec())
-		{
-			int col = item->column();
-			CourseInfoPtr courseInfo = addWidget->GetCourseInfo();
-			QVariant val = ui.tableWidget_MathClass->horizontalHeaderItem(col)->data(0);
-			QDateTime DayTime = val.toDateTime();
-			courseInfo->TimeDay = DayTime;
-
-			_DateCourses[DayTime].push_back(courseInfo);
-			QString tex = courseInfo->CourseName + "\n" + courseInfo->TeacherName;
-
-			item->setText(tex);
-			item->setData(0, QVariant::fromValue(courseInfo));
-		}
 	}
 	
+}
+
+void MathLab::OnNewCourse(QTableWidgetItem * item)
+{
+	MathLabAddWidget * addWidget = new MathLabAddWidget();
+
+	if (!addWidget->exec())
+	{
+		int col = item->column();
+		CourseInfoPtr courseInfo = addWidget->GetCourseInfo();
+		QDateTime DayTime = ui.tableWidget_MathClass->horizontalHeaderItem(col)->data(Qt::UserRole).value<QDateTime>();
+		courseInfo->TimeDay = DayTime;
+		courseInfo->CourseIdx = item->row();
+		_DateCourses[DayTime].push_back(courseInfo);
+
+		UpdateTable();
+	}
 }
 
 void MathLab::OnDelCourseClicked()
@@ -120,17 +128,49 @@ void MathLab::OnDelCourseClicked()
 	}
 	else
 	{
-		CourseInfoPtr courseInfo = item->data(0).value<CourseInfoPtr>();
-		QVariant val = ui.tableWidget_MathClass->horizontalHeaderItem(item->column())->data(0);
-		QDateTime DayTime = val.toDateTime();
-		CourseInfoList::iterator courseIt = std::find_if(_DateCourses[DayTime].begin(), _DateCourses[DayTime].end(), boost::bind(&CourseInfo::CourseIdx, _1) == courseInfo->CourseIdx);
+		QDateTime DayTime = ui.tableWidget_MathClass->horizontalHeaderItem(item->column())->data(Qt::UserRole).value<QDateTime>();
+		CourseInfoList::iterator courseIt = std::find_if(_DateCourses[DayTime].begin(), _DateCourses[DayTime].end(), boost::bind(&CourseInfo::CourseIdx, _1) == item->row());
 		if (courseIt != _DateCourses[DayTime].end())
 		{
 			courseIt = _DateCourses[DayTime].erase(courseIt);
 		}
 
-		item->setText("");
-		item->data(0).clear();
+		UpdateTable();
+	}
+}
+
+void MathLab::OnTableWidgetDouble(QTableWidgetItem *item)
+{
+	if (item)
+	{
+		if (!item->text().isEmpty())
+		{
+			QDateTime DayTime = ui.tableWidget_MathClass->horizontalHeaderItem(item->column())->data(Qt::UserRole).value<QDateTime>();
+
+			MathLabAddWidget * EditWidget = new MathLabAddWidget();
+			CourseInfoList::iterator it = std::find_if(_DateCourses[DayTime].begin(), _DateCourses[DayTime].end(), boost::bind(&CourseInfo::CourseIdx, _1) == item->row());
+			if (it != _DateCourses[DayTime].end())
+			{
+				CourseInfoPtr courseInfo = *it;
+				if (courseInfo)
+				{
+					EditWidget->SetCourseInfo(courseInfo);
+
+					if (!EditWidget->exec())
+					{
+						courseInfo = EditWidget->GetCourseInfo();
+						courseInfo->TimeDay = DayTime;
+						courseInfo->CourseIdx = item->row();
+
+						UpdateTable();
+					}
+				}
+			}
+		}
+		else
+		{
+			OnNewCourse(item);
+		}
 	}
 }
 
@@ -139,6 +179,7 @@ void MathLab::OnResetDateClicked()
 	ui.dateEdit->setDateTime(QDateTime::currentDateTime());
 
 	SetWeekTime(ui.dateEdit->dateTime());
+	UpdateTable();
 }
 
 void MathLab::closeEvent(QCloseEvent * event)
@@ -181,33 +222,9 @@ QStringList MathLab::FillWeekTime(QDateTime CurTime, int weekday)
 
 		if (QTableWidgetItem * ia = ui.tableWidget_MathClass->horizontalHeaderItem(col))
 		{
-			ui.tableWidget_MathClass->horizontalHeaderItem(col)->setData(0, QVariant::fromValue(NextTime));
+			ui.tableWidget_MathClass->horizontalHeaderItem(col)->setData(Qt::UserRole, QVariant::fromValue(NextTime));
 		}
 		
-		CourseInfoList dateCourses;
-		if (_DateCourses.size())
-		{
-			dateCourses = _DateCourses[NextTime];
-		}
-
-		// 填充单元格内容
-		for (int row = 0; row < 5; row++)
-		{
-			QTableWidgetItem *item = new QTableWidgetItem();
-
-			CourseInfoList::iterator courseIt = std::find_if(dateCourses.begin(), dateCourses.end(), boost::bind(&CourseInfo::CourseIdx, _1) == row);
-			if (courseIt != dateCourses.end())
-			{
-				CourseInfoPtr courseInfo = *courseIt;
-				QString tex = courseInfo->CourseName + "\n" + courseInfo->TeacherName;
-
-				item->setText(tex);
-				item->setData(0, QVariant::fromValue(courseInfo));
-			}
-
-			ui.tableWidget_MathClass->setItem(row, col, item);
-		}
-
 	}
 	return header;
 }
@@ -231,7 +248,7 @@ void MathLab::InitSystemTray()
 	pSystemTray->setContextMenu(menu);
 
 	pSystemTray->setToolTip(QString::fromLocal8Bit("MathLab"));
-	pSystemTray->setIcon(QIcon(":/EmitCrash/lab.png"));
+	pSystemTray->setIcon(QIcon(":/Icon/mathLab.ico"));
 
 	connect(pSystemTray,SIGNAL(activated(QSystemTrayIcon::ActivationReason)),this,SLOT(on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason)));
 
@@ -239,6 +256,35 @@ void MathLab::InitSystemTray()
 	pSystemTray->show();
 }
 
+
+void MathLab::UpdateTable()
+{
+	for (int col = 0; col < 7; col++)
+	{
+		QDateTime DayTime = ui.tableWidget_MathClass->horizontalHeaderItem(col)->data(Qt::UserRole).value<QDateTime>();
+		CourseInfoList dateCourses;
+		if (_DateCourses[DayTime].size())
+		{
+			dateCourses = _DateCourses[DayTime];
+		}
+
+		// 填充单元格内容
+		for (int row = 0; row < 5; row++)
+		{
+			QString tex = "";
+			CourseInfoList::iterator courseIt = std::find_if(dateCourses.begin(), dateCourses.end(), boost::bind(&CourseInfo::CourseIdx, _1) == row);
+			if (courseIt != dateCourses.end())
+			{
+				CourseInfoPtr courseInfo = *courseIt;
+				tex = courseInfo->CourseName + "\n" + courseInfo->TeacherName;
+			}
+
+			ui.tableWidget_MathClass->setItem(row, col, new QTableWidgetItem(QString("%1").arg(tex)));
+
+		}
+
+	}
+}
 
 void MathLab::on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason)
 {

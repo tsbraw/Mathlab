@@ -16,6 +16,8 @@ public:
 
 	CourseInfoPtr GetCourseInfo();
 
+	void SetCourseInfo(CourseInfoPtr courseInfo);
+
 private slots:
 	void On_pushButton_Ok_clicked();
 

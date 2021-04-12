@@ -27,8 +27,13 @@ public slots:
 	// 点击新建课程按钮
 	void OnNewCourseClicked();
 
+	void OnNewCourse(QTableWidgetItem * item);
+
 	// 点击删除课程按钮
 	void OnDelCourseClicked();
+
+	// 双击表格单元格
+	void OnTableWidgetDouble(QTableWidgetItem *item);
 
 	// 还原当前时间
 	void OnResetDateClicked();
@@ -47,6 +52,9 @@ private:
 
 	// 初始化系统托盘
 	void InitSystemTray();
+
+	// 更新表格数据
+	void UpdateTable();
 
 private:
 	Ui::MathLabClass ui;

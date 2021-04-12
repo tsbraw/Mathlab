@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MathLab.h'
 **
-** Created: Wed Apr 7 20:51:34 2021
+** Created: Tue Apr 13 00:13:34 2021
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MathLab[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -33,13 +33,25 @@ static const uint qt_meta_data_MathLab[] = {
  // slots: signature, parameters, type, tag, flags
       18,    9,    8,    8, 0x0a,
       47,    8,    8,    8, 0x0a,
+      73,   68,    8,    8, 0x0a,
+     104,    8,    8,    8, 0x0a,
+     125,   68,    8,    8, 0x0a,
+     164,    8,    8,    8, 0x0a,
+     191,  185,    8,    8, 0x0a,
+     223,  216,    8,    8, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MathLab[] = {
     "MathLab\0\0dateTime\0OnDateEditChanged(QDateTime)\0"
-    "OnNewCourseClicked()\0"
+    "OnNewCourseClicked()\0item\0"
+    "OnNewCourse(QTableWidgetItem*)\0"
+    "OnDelCourseClicked()\0"
+    "OnTableWidgetDouble(QTableWidgetItem*)\0"
+    "OnResetDateClicked()\0event\0"
+    "closeEvent(QCloseEvent*)\0reason\0"
+    "on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason)\0"
 };
 
 void MathLab::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -50,6 +62,12 @@ void MathLab::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         switch (_id) {
         case 0: _t->OnDateEditChanged((*reinterpret_cast< const QDateTime(*)>(_a[1]))); break;
         case 1: _t->OnNewCourseClicked(); break;
+        case 2: _t->OnNewCourse((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
+        case 3: _t->OnDelCourseClicked(); break;
+        case 4: _t->OnTableWidgetDouble((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
+        case 5: _t->OnResetDateClicked(); break;
+        case 6: _t->closeEvent((*reinterpret_cast< QCloseEvent*(*)>(_a[1]))); break;
+        case 7: _t->on_activatedSysTrayIcon((*reinterpret_cast< QSystemTrayIcon::ActivationReason(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -89,9 +107,9 @@ int MathLab::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 8;
     }
     return _id;
 }
