@@ -6,7 +6,7 @@
 class MathLabDataService
 {
 public:
-	MathLabDataService(std::string userId);
+	MathLabDataService();
 	~MathLabDataService(void);
 
 	CourseInfoList GetCourseList() const;
@@ -15,8 +15,10 @@ public:
 	DateCourseInfoList GetDateCourseList() const;
 	void SetDateCourseList(DateCourseInfoList dateList);
 
-	UsersTpye GetUserType() const;
-	void SetUserType(UsersTpye user);
+	LabCourseInoList GetLabCourseList() const;
+
+	UesrInfoList GetUserList() const;
+	void SetUserIntoList(UesrInfoPtr user);
 
 public:
 	
@@ -26,9 +28,9 @@ public:
 	// 初始化数据库服务
 	bool InitDB();
 
-	void ReadDataFromDB(std::string userId);
+	void ReadDataFromDB();
 
-	void WriteDataToDB(std::string userId);
+	void WriteDataToDB();
 
 
 	DateCourseInfoList _DateCourseList;
@@ -36,7 +38,7 @@ public:
 private:
 	CourseInfoList _CourseList;
 
-	UsersTpye _UserType;
+	UesrInfoList _UserList;
 
 	QString _Host;
 	int _Port;

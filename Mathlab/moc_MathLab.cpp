@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MathLab.h'
 **
-** Created: Tue Apr 13 00:13:34 2021
+** Created: Fri Apr 16 23:11:11 2021
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!

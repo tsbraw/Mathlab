@@ -14,6 +14,17 @@ enum UsersTpye
 	Students
 };
 
+//用户信息
+struct UesrInfo 
+{
+	QString UserName;
+
+	UsersTpye Usertype;
+
+	QString UserPwd;
+};
+typedef boost::shared_ptr<UesrInfo> UesrInfoPtr;
+typedef std::vector<UesrInfoPtr> UesrInfoList;
 
 //选课信息
 struct CourseInfo
@@ -41,9 +52,13 @@ struct CourseInfo
 	//课程日期
 	QDateTime TimeDay;
 
+	//实验室名称
+	QString LabName;
+
 	//课程序号
 	int CourseIdx;
 };
 typedef boost::shared_ptr<CourseInfo> CourseInfoPtr;
 typedef std::vector<CourseInfoPtr> CourseInfoList;
 typedef std::map<QDateTime, CourseInfoList> DateCourseInfoList;
+typedef std::map<QString, DateCourseInfoList> LabCourseInoList;

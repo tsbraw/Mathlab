@@ -14,7 +14,7 @@ class MathLab : public QMainWindow, public MathLabDataService
 	Q_OBJECT
 
 public:
-	MathLab(QWidget *parent = 0, Qt::WFlags flags = 0, std::string userId = "");
+	MathLab(QWidget *parent = 0, Qt::WFlags flags = 0, UsersTpye userType = Students);
 
 	void Init();
 
@@ -58,9 +58,6 @@ private:
 
 private:
 	Ui::MathLabClass ui;
-
-	// 用户类型(对应用户权限)
-	UsersTpye _UserType;
 
 	// 课程信息列表
 	DateCourseInfoList _DateCourses;

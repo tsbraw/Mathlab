@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'MathLabLoginWidgety15280.ui'
+** Form generated from reading UI file 'MathLabLoginWidgetqHp672.ui'
 **
-** Created: Fri Apr 16 22:29:04 2021
+** Created: Fri Apr 16 23:12:53 2021
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MATHLABLOGINWIDGETY15280_H
-#define MATHLABLOGINWIDGETY15280_H
+#ifndef MATHLABLOGINWIDGETQHP672_H
+#define MATHLABLOGINWIDGETQHP672_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -132,4 +132,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MATHLABLOGINWIDGETY15280_H
+#endif // MATHLABLOGINWIDGETQHP672_H

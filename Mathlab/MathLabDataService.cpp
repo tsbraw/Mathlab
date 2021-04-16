@@ -8,10 +8,10 @@
 #include "MathLabDataService.h"
 
 
-MathLabDataService::MathLabDataService(std::string userId)
+MathLabDataService::MathLabDataService()
 {
 
-	ReadDataFromDB(userId);
+	ReadDataFromDB();
 }
 
 
@@ -40,14 +40,14 @@ void MathLabDataService::SetDateCourseList(DateCourseInfoList dateList)
 	_DateCourseList = dateList;
 }
 
-UsersTpye MathLabDataService::GetUserType() const
+UesrInfoList MathLabDataService::GetUserList() const
 {
-	return _UserType;
+	return _UserList;
 }
 
-void MathLabDataService::SetUserType(UsersTpye user)
+void MathLabDataService::SetUserIntoList(UesrInfoPtr user)
 {
-	_UserType = user;
+	_UserList.push_back(user);
 }
 
 void MathLabDataService::Init()
@@ -76,8 +76,8 @@ bool MathLabDataService::InitDB()
 	else
 	{
 		QString ErrorStr = _DataBase.lastError().databaseText();
-		QMessageBox::critical(0, QObject::tr("无法打开数据库"),
-			"无法创建数据库连接！", QMessageBox::Cancel);
+		/*QMessageBox::critical(0, QObject::tr("无法打开数据库"),
+			"无法创建数据库连接！", QMessageBox::Cancel);*/
 
 		return false;
 	}
@@ -98,7 +98,7 @@ bool MathLabDataService::InitDB()
 	return true;
 }
 
-void MathLabDataService::ReadDataFromDB(std::string userId)
+void MathLabDataService::ReadDataFromDB()
 {
 	if (_DataBase.isOpen())
 	{
@@ -110,7 +110,7 @@ void MathLabDataService::ReadDataFromDB(std::string userId)
 	}
 }
 
-void MathLabDataService::WriteDataToDB(std::string userId)
+void MathLabDataService::WriteDataToDB()
 {
 
 }

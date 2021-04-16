@@ -11,9 +11,8 @@
 
 Q_DECLARE_METATYPE(CourseInfoPtr);
 
-MathLab::MathLab(QWidget *parent, Qt::WFlags flags, std::string userId)
+MathLab::MathLab(QWidget *parent, Qt::WFlags flags, UsersTpye userType)
 	: QMainWindow(parent, flags)
-	, MathLabDataService(userId)
 {
 	ui.setupUi(this);
 
@@ -73,15 +72,7 @@ void MathLab::Init()
 	pSystemTray = new QSystemTrayIcon(this);
 
 	_DateCourseList = GetDateCourseList();
-	_UserType = GetUserType();
 
-	if (_UserType == Teachers)
-	{
-
-	}
-	else if (_UserType == Students)
-	{
-	}
 }
 
 MathLab::~MathLab()
