@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'MathLabHp9524.ui'
+** Form generated from reading UI file 'MathLabBG4380.ui'
 **
-** Created: Sun Apr 11 23:41:03 2021
+** Created: Fri Apr 16 21:52:03 2021
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MATHLABHP9524_H
-#define MATHLABHP9524_H
+#ifndef MATHLABBG4380_H
+#define MATHLABBG4380_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -25,6 +25,7 @@
 #include <QtGui/QSpacerItem>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTableWidget>
+#include <QtGui/QTreeWidget>
 #include <QtGui/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -34,13 +35,14 @@ class Ui_MathLabClass
 public:
     QWidget *centralwidget;
     QGridLayout *gridLayout;
+    QTreeWidget *treeWidget_Class;
     QLabel *label_date;
-    QPushButton *pushButton_del;
-    QPushButton *pushButton_new;
-    QTableWidget *tableWidget_MathClass;
-    QSpacerItem *horizontalSpacer;
     QDateEdit *dateEdit;
     QPushButton *pushButton_resetDate;
+    QTableWidget *tableWidget_MathClass;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *pushButton_new;
+    QPushButton *pushButton_del;
     QStatusBar *statusbar;
     QMenuBar *menubar;
     QMenu *menu_edit;
@@ -58,20 +60,28 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout = new QGridLayout(centralwidget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        treeWidget_Class = new QTreeWidget(centralwidget);
+        QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
+        __qtreewidgetitem->setText(0, QString::fromUtf8("1"));
+        treeWidget_Class->setHeaderItem(__qtreewidgetitem);
+        treeWidget_Class->setObjectName(QString::fromUtf8("treeWidget_Class"));
+
+        gridLayout->addWidget(treeWidget_Class, 0, 0, 3, 1);
+
         label_date = new QLabel(centralwidget);
         label_date->setObjectName(QString::fromUtf8("label_date"));
 
-        gridLayout->addWidget(label_date, 0, 0, 1, 1);
+        gridLayout->addWidget(label_date, 0, 1, 1, 1);
 
-        pushButton_del = new QPushButton(centralwidget);
-        pushButton_del->setObjectName(QString::fromUtf8("pushButton_del"));
+        dateEdit = new QDateEdit(centralwidget);
+        dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
 
-        gridLayout->addWidget(pushButton_del, 2, 3, 1, 1);
+        gridLayout->addWidget(dateEdit, 0, 2, 1, 2);
 
-        pushButton_new = new QPushButton(centralwidget);
-        pushButton_new->setObjectName(QString::fromUtf8("pushButton_new"));
+        pushButton_resetDate = new QPushButton(centralwidget);
+        pushButton_resetDate->setObjectName(QString::fromUtf8("pushButton_resetDate"));
 
-        gridLayout->addWidget(pushButton_new, 2, 2, 1, 1);
+        gridLayout->addWidget(pushButton_resetDate, 0, 4, 1, 1);
 
         tableWidget_MathClass = new QTableWidget(centralwidget);
         if (tableWidget_MathClass->columnCount() < 7)
@@ -104,22 +114,23 @@ public:
         tableWidget_MathClass->setVerticalHeaderItem(4, __qtablewidgetitem11);
         tableWidget_MathClass->setObjectName(QString::fromUtf8("tableWidget_MathClass"));
 
-        gridLayout->addWidget(tableWidget_MathClass, 1, 0, 1, 4);
+        gridLayout->addWidget(tableWidget_MathClass, 1, 1, 1, 4);
 
         horizontalSpacer = new QSpacerItem(531, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout->addItem(horizontalSpacer, 2, 1, 1, 1);
+        gridLayout->addItem(horizontalSpacer, 2, 1, 1, 2);
 
-        dateEdit = new QDateEdit(centralwidget);
-        dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
+        pushButton_new = new QPushButton(centralwidget);
+        pushButton_new->setObjectName(QString::fromUtf8("pushButton_new"));
 
-        gridLayout->addWidget(dateEdit, 0, 1, 1, 2);
+        gridLayout->addWidget(pushButton_new, 2, 3, 1, 1);
 
-        pushButton_resetDate = new QPushButton(centralwidget);
-        pushButton_resetDate->setObjectName(QString::fromUtf8("pushButton_resetDate"));
+        pushButton_del = new QPushButton(centralwidget);
+        pushButton_del->setObjectName(QString::fromUtf8("pushButton_del"));
 
-        gridLayout->addWidget(pushButton_resetDate, 0, 3, 1, 1);
+        gridLayout->addWidget(pushButton_del, 2, 4, 1, 1);
 
+        gridLayout->setColumnStretch(2, 1);
         MathLabClass->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MathLabClass);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -145,8 +156,7 @@ public:
     {
         MathLabClass->setWindowTitle(QApplication::translate("MathLabClass", "\345\244\247\345\255\246\346\225\260\345\255\246\345\256\236\351\252\214\347\256\241\347\220\206", 0, QApplication::UnicodeUTF8));
         label_date->setText(QApplication::translate("MathLabClass", "\346\227\245\346\234\237\357\274\232", 0, QApplication::UnicodeUTF8));
-        pushButton_del->setText(QApplication::translate("MathLabClass", "\345\210\240\351\231\244", 0, QApplication::UnicodeUTF8));
-        pushButton_new->setText(QApplication::translate("MathLabClass", "\346\226\260\345\242\236", 0, QApplication::UnicodeUTF8));
+        pushButton_resetDate->setText(QApplication::translate("MathLabClass", "\350\277\230\345\216\237", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem = tableWidget_MathClass->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MathLabClass", "\345\221\250\344\270\200", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget_MathClass->horizontalHeaderItem(1);
@@ -171,7 +181,8 @@ public:
         ___qtablewidgetitem10->setText(QApplication::translate("MathLabClass", "\347\254\254\345\233\233\345\244\247\350\212\202", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem11 = tableWidget_MathClass->verticalHeaderItem(4);
         ___qtablewidgetitem11->setText(QApplication::translate("MathLabClass", "\347\254\254\344\272\224\345\244\247\350\212\202", 0, QApplication::UnicodeUTF8));
-        pushButton_resetDate->setText(QApplication::translate("MathLabClass", "\350\277\230\345\216\237", 0, QApplication::UnicodeUTF8));
+        pushButton_new->setText(QApplication::translate("MathLabClass", "\346\226\260\345\242\236", 0, QApplication::UnicodeUTF8));
+        pushButton_del->setText(QApplication::translate("MathLabClass", "\345\210\240\351\231\244", 0, QApplication::UnicodeUTF8));
         menu_edit->setTitle(QApplication::translate("MathLabClass", "\347\274\226\350\276\221", 0, QApplication::UnicodeUTF8));
         menu_search->setTitle(QApplication::translate("MathLabClass", "\346\237\245\350\257\242", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
@@ -184,4 +195,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MATHLABHP9524_H
+#endif // MATHLABBG4380_H

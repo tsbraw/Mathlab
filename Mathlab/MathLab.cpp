@@ -41,6 +41,27 @@ void MathLab::Init()
 	ui.tableWidget_MathClass->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	ui.tableWidget_MathClass->setSelectionMode(QAbstractItemView::SingleSelection);
 
+	ui.treeWidget_Class->setHeaderHidden(true);
+	QTreeWidgetItem *Nine = new QTreeWidgetItem();
+	Nine->setText(0, QString::fromLocal8Bit("九号楼"));
+	QTreeWidgetItem *Nine1 = new QTreeWidgetItem(Nine);
+	Nine1->setText(0, QString::fromLocal8Bit("09101"));
+	QTreeWidgetItem *Nine2 = new QTreeWidgetItem(Nine);
+	Nine2->setText(0, QString::fromLocal8Bit("09102"));
+	QTreeWidgetItem *Nine3 = new QTreeWidgetItem(Nine);
+	Nine3->setText(0, QString::fromLocal8Bit("09103"));
+	ui.treeWidget_Class->addTopLevelItem(Nine);
+
+	QTreeWidgetItem *Elev = new QTreeWidgetItem();
+	Elev->setText(0, QString::fromLocal8Bit("十一号楼"));
+	QTreeWidgetItem *Elev1 = new QTreeWidgetItem(Elev);
+	Elev1->setText(0, QString::fromLocal8Bit("11101"));
+	QTreeWidgetItem *Elev2 = new QTreeWidgetItem(Elev);
+	Elev2->setText(0, QString::fromLocal8Bit("11102"));
+	QTreeWidgetItem *Elev3 = new QTreeWidgetItem(Elev);
+	Elev3->setText(0, QString::fromLocal8Bit("11103"));
+	ui.treeWidget_Class->addTopLevelItem(Elev);
+
 	QDateTime current_date_time = QDateTime::currentDateTime();
 
 	ui.dateEdit->setCalendarPopup(true);
