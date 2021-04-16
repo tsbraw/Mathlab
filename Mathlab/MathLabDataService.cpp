@@ -65,7 +65,7 @@ bool MathLabDataService::InitDB()
 	_DataBase.setUserName(_User);
 	_DataBase.setPassword(_Pwd);
 
-	//_DataBase.setConnectOptions(TODO);
+	_DataBase.setConnectOptions("SQL_ATTR_LOGIN_TIMEOUT=5;SQL_ATTR_CONNECT_TIMROUT=5");
 
 	bool isopen = _DataBase.open();
 
@@ -76,25 +76,25 @@ bool MathLabDataService::InitDB()
 	else
 	{
 		QString ErrorStr = _DataBase.lastError().databaseText();
-		QMessageBox::critical(0, QObject::tr("ÎŞ·¨´ò¿ªÊı¾İ¿â"),
-			"ÎŞ·¨´´½¨Êı¾İ¿âÁ¬½Ó£¡", QMessageBox::Cancel);
+		QMessageBox::critical(0, QObject::tr("æ— æ³•æ‰“å¼€æ•°æ®åº“"),
+			"æ— æ³•åˆ›å»ºæ•°æ®åº“è¿æ¥ï¼", QMessageBox::Cancel);
 
 		return false;
 	}
 
 
-	// ÏÂÃæÀ´´´½¨±í
-	// Èç¹û MySQL Êı¾İ¿âÖĞÒÑ¾­´æÔÚÍ¬ÃûµÄ±í£¬ÄÇÃ´ÏÂÃæµÄ´úÂë²»»áÖ´ĞĞ
+	// ä¸‹é¢æ¥åˆ›å»ºè¡¨
+	// å¦‚æœ MySQL æ•°æ®åº“ä¸­å·²ç»å­˜åœ¨åŒåçš„è¡¨ï¼Œé‚£ä¹ˆä¸‹é¢çš„ä»£ç ä¸ä¼šæ‰§è¡Œ
 	QSqlQuery query(_DataBase);
 
-	// Ê¹Êı¾İ¿âÖ§³ÖÖĞÎÄ
+	// ä½¿æ•°æ®åº“æ”¯æŒä¸­æ–‡
 	query.exec("SET NAMES 'Latin1'");
-	// ´´½¨ course ±í
+	// åˆ›å»º course è¡¨
 	query.exec("create table course (id int primary key, "
 		"name varchar(20), teacher varchar(20))");
-	query.exec("insert into course values(0, 'ÊıÑ§', 'ÕÅÀÏÊ¦')");
-	query.exec("insert into course values(1, 'ÓïÎÄ', 'ÀîÀÏÊ¦')");
-	query.exec("insert into course values(2, 'Ó¢Óï', 'ÍõÀÏÊ¦')");
+	query.exec("insert into course values(0, 'æ•°å­¦', 'å¼ è€å¸ˆ')");
+	query.exec("insert into course values(1, 'è¯­æ–‡', 'æè€å¸ˆ')");
+	query.exec("insert into course values(2, 'è‹±è¯­', 'ç‹è€å¸ˆ')");
 	return true;
 }
 
@@ -104,7 +104,7 @@ void MathLabDataService::ReadDataFromDB(std::string userId)
 	{
 		QSqlQuery query(_DataBase);
 
-		query.prepare("CALL READ_DATA()");
+		bool isOK= query.prepare("CALL READ_DATA()");
 
 
 	}
