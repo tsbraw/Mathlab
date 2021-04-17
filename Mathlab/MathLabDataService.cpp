@@ -30,14 +30,14 @@ void MathLabDataService::SetCourseList(CourseInfoList CourseList)
 	_CourseList = CourseList;
 }
 
-DateCourseInfoList MathLabDataService::GetDateCourseList() const
+LabCourseInoList MathLabDataService::GetLabCourseList() const
 {
-	return _DateCourseList;
+	return _LabCourseList;
 }
 
-void MathLabDataService::SetDateCourseList(DateCourseInfoList dateList)
+void MathLabDataService::SetDateCourseList(LabCourseInoList labList)
 {
-	_DateCourseList = dateList;
+	_LabCourseList = labList;
 }
 
 UserInfoList MathLabDataService::GetUserList() const

@@ -14,49 +14,8 @@
    <string>实验规划</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="4" column="3">
-    <widget class="QPushButton" name="pushButton_Ok">
-     <property name="text">
-      <string>确定</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="2" colspan="3">
-    <widget class="QLineEdit" name="lineEdit_Classes"/>
-   </item>
-   <item row="3" column="2" colspan="3">
-    <widget class="QLineEdit" name="lineEdit_instruction"/>
-   </item>
-   <item row="4" column="4">
-    <widget class="QPushButton" name="pushButton_Cancel">
-     <property name="text">
-      <string>取消</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>说明：</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>教师：</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>班级：</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2" colspan="3">
-    <widget class="QLineEdit" name="lineEdit_Teacher"/>
+   <item row="0" column="2" colspan="3">
+    <widget class="QLineEdit" name="lineEdit_Course"/>
    </item>
    <item row="0" column="0">
     <widget class="QLabel" name="label">
@@ -65,7 +24,7 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="2">
+   <item row="3" column="2">
     <spacer name="horizontalSpacer">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -78,8 +37,39 @@
      </property>
     </spacer>
    </item>
-   <item row="0" column="2" colspan="3">
-    <widget class="QLineEdit" name="lineEdit_Course"/>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>班级：</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="4">
+    <widget class="QPushButton" name="pushButton_Cancel">
+     <property name="text">
+      <string>取消</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2" colspan="3">
+    <widget class="QLineEdit" name="lineEdit_instruction"/>
+   </item>
+   <item row="1" column="2" colspan="3">
+    <widget class="QLineEdit" name="lineEdit_Classes"/>
+   </item>
+   <item row="3" column="3">
+    <widget class="QPushButton" name="pushButton_Ok">
+     <property name="text">
+      <string>确定</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>说明：</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

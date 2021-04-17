@@ -14,7 +14,7 @@ class MathLab : public QMainWindow, public MathLabDataService
 	Q_OBJECT
 
 public:
-	MathLab(QWidget *parent = 0, Qt::WFlags flags = 0, UsersTpye userType = Students);
+	MathLab(QWidget *parent = 0, Qt::WFlags flags = 0, UserInfoPtr userinfo = nullptr);
 
 	void Init();
 
@@ -27,7 +27,7 @@ public slots:
 	// 点击新建课程按钮
 	void OnNewCourseClicked();
 
-	void OnNewCourse(QTableWidgetItem * item);
+	void OnNewCourse(QString classRoom, QTableWidgetItem * item);
 
 	// 点击删除课程按钮
 	void OnDelCourseClicked();
@@ -44,6 +44,23 @@ public slots:
 	// 点击托盘按钮
 	void on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason);
 
+private slots:
+	void on_treeWidget_customContextMenuRequested(const QPoint& p);
+
+	void on_treeWidget_itemClicked(QTreeWidgetItem *item, int col);
+
+	// 添加教室
+	void on_addItem_triggered();
+
+	// 编辑教室
+	void on_editItem_triggered();
+
+	// 删除教室
+	void on_delItem_triggered();
+
+	// 展示我的课程信息
+	void showMineCourses();
+
 private:
 
 	// 设置表头内容
@@ -53,14 +70,22 @@ private:
 	// 初始化系统托盘
 	void InitSystemTray();
 
+	void InitTreeWidget();
+
 	// 更新表格数据
 	void UpdateTable();
 
 private:
 	Ui::MathLabClass ui;
 
+	// 个人信息
+	UserInfoPtr _myInfo;
+
 	// 课程信息列表
-	DateCourseInfoList _DateCourses;
+	DateCourseInfoList _DateList;
+
+	// 实验室信息列表
+	LabCourseInoList _LabList;
 
 	// 系统托盘
 	QSystemTrayIcon *pSystemTray;

@@ -12,10 +12,8 @@ public:
 	CourseInfoList GetCourseList() const;
 	void SetCourseList(CourseInfoList CourseList);
 
-	DateCourseInfoList GetDateCourseList() const;
-	void SetDateCourseList(DateCourseInfoList dateList);
-
 	LabCourseInoList GetLabCourseList() const;
+	void SetDateCourseList(LabCourseInoList labList);
 
 	UserInfoList GetUserList() const;
 	void SetUserList(UserInfoList userLst);
@@ -33,7 +31,7 @@ public:
 	void WriteDataToDB();
 
 
-	DateCourseInfoList _DateCourseList;
+	LabCourseInoList _LabCourseList;
 
 private:
 	CourseInfoList _CourseList;

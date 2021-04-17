@@ -16,6 +16,7 @@ public:
 public:
 	UsersTpye GetUserTypeByCheck();
 
+	UserInfoPtr GetCurrentUser() const;
 
 public slots:
 	void on_Longin_clicked();
@@ -43,6 +44,8 @@ private:
 	bool _IsRegister;
 
 	UserInfoList _Userlst;
+
+	UserInfoPtr _user;
 };
 
 #endif // MATHLABLOGINWIDGET_H

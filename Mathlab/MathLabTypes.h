@@ -21,15 +21,21 @@ struct UserInfo
 		:UserName("")
 		,Usertype(Students)
 		,UserPwd("")
+		,UserClass("")
 	{
 
 	}
-
+	// 用户名
 	QString UserName;
 
+	// 用户类型
 	UsersTpye Usertype;
 
+	// 用户密码
 	QString UserPwd;
+
+	// 所属班级 or 教师名称
+	QString UserClass;
 };
 typedef boost::shared_ptr<UserInfo> UserInfoPtr;
 typedef std::vector<UserInfoPtr> UserInfoList;
