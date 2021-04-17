@@ -75,6 +75,8 @@ private:
 	// 更新表格数据
 	void UpdateTable();
 
+	bool CheckExistInTree(QString text);
+
 private:
 	Ui::MathLabClass ui;
 
@@ -89,5 +91,8 @@ private:
 
 	// 系统托盘
 	QSystemTrayIcon *pSystemTray;
+
+	// 当前时间
+	QDateTime current_date_time;
 };
 #endif // EMITCRASH_H

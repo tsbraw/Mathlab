@@ -57,7 +57,7 @@ void MathLab::Init()
 	ui.tableWidget_MathClass->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	ui.tableWidget_MathClass->setSelectionMode(QAbstractItemView::SingleSelection);
 
-	QDateTime current_date_time = QDateTime::currentDateTime();
+	current_date_time = QDateTime::currentDateTime();
 
 	ui.dateEdit->setCalendarPopup(true);
 	ui.dateEdit->setDateTime(current_date_time);
@@ -90,6 +90,7 @@ MathLab::~MathLab()
 void MathLab::OnDateEditChanged(const QDateTime & dateTime)
 {
 	SetWeekTime(dateTime);
+	UpdateTable();
 }
 
 void MathLab::OnNewCourseClicked()
@@ -231,9 +232,9 @@ void MathLab::OnTableWidgetDouble(QTableWidgetItem *item)
 
 void MathLab::OnResetDateClicked()
 {
-	ui.dateEdit->setDateTime(QDateTime::currentDateTime());
+	ui.dateEdit->setDateTime(current_date_time);
 
-	SetWeekTime(ui.dateEdit->dateTime());
+	SetWeekTime(current_date_time);
 	UpdateTable();
 }
 
@@ -275,9 +276,9 @@ QStringList MathLab::FillWeekTime(QDateTime CurTime, int weekday)
 	
 		header << Curr;
 
-		if (QTableWidgetItem * ia = ui.tableWidget_MathClass->horizontalHeaderItem(col))
+		if (QTableWidgetItem * ia = ui.tableWidget_MathClass->horizontalHeaderItem(col - 1))
 		{
-			ui.tableWidget_MathClass->horizontalHeaderItem(col)->setData(Qt::UserRole, QVariant::fromValue(NextTime));
+			ui.tableWidget_MathClass->horizontalHeaderItem(col - 1)->setData(Qt::UserRole, QVariant::fromValue(NextTime));
 		}
 		
 	}
@@ -301,7 +302,7 @@ void MathLab::InitSystemTray()
 	menu->addAction(quit);
 	pSystemTray->setContextMenu(menu);
 
-	pSystemTray->setIcon(QIcon(":/Icon/mathLab.ico"));
+	pSystemTray->setIcon(QIcon(QString::fromLocal8Bit(":/Icon/mathLab.ico")));
 	pSystemTray->setToolTip(QString::fromLocal8Bit("MathLab"));
 	
 
@@ -342,7 +343,10 @@ void MathLab::InitTreeWidget()
 	ui.treeWidget_Class->expandAll();
 
 	connect(ui.treeWidget_Class, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(on_treeWidget_itemClicked(QTreeWidgetItem *, int)));
-	connect(ui.treeWidget_Class,SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(on_treeWidget_customContextMenuRequested(const QPoint&)));
+	if (_myInfo->Usertype == Teachers)
+	{
+		connect(ui.treeWidget_Class,SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(on_treeWidget_customContextMenuRequested(const QPoint&)));
+	}
 }
 
 void MathLab::UpdateTable()
@@ -350,6 +354,8 @@ void MathLab::UpdateTable()
 	for (int col = 0; col < 7; col++)
 	{
 		QDateTime DayTime = ui.tableWidget_MathClass->horizontalHeaderItem(col)->data(Qt::UserRole).value<QDateTime>();
+		QString Da = DayTime.toString("yyyy.MM.dd");
+
 		CourseInfoList dateCourses;
 		if (_DateList[DayTime].size())
 		{
@@ -372,7 +378,7 @@ void MathLab::UpdateTable()
 					Classes.push_back(courseInfo->ClassNames.at(i));
 				}
 				QString ClassStr = Classes.join(";");
-				tex = QString::fromLocal8Bit("课程名称:%1 \n教师名称:%2: \n班级名称:%3 \n项目说明:%4")
+				tex = QString::fromLocal8Bit("课程名称:%1 \n教师名称:%2 \n班级名称:%3 \n项目说明:%4")
 					.arg(courseInfo->CourseName).arg(courseInfo->TeacherName).arg(ClassStr).arg(courseInfo->ProjectInfo);
 
 				ui.tableWidget_MathClass->item(row, col)->setText(tex);
@@ -380,6 +386,20 @@ void MathLab::UpdateTable()
 		}
 
 	}
+}
+
+bool MathLab::CheckExistInTree(QString text)
+{
+	QTreeWidgetItemIterator it(ui.treeWidget_Class);
+	while (*it) 
+	{
+		if ((*it)->text(0) == text)
+		{
+			return true;
+		}
+		++it;
+	}
+	return false;
 }
 
 void MathLab::on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason)
@@ -397,7 +417,6 @@ void MathLab::on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason)
 
 void MathLab::on_treeWidget_customContextMenuRequested(const QPoint& p)
 {
-	QTreeWidgetItem* item = ui.treeWidget_Class->currentItem();
 	// 右键菜单栏
 	QAction * additem = new QAction(QString::fromLocal8Bit("新增"), ui.treeWidget_Class);
 	connect(additem, SIGNAL(triggered()), this, SLOT(on_addItem_triggered()));
@@ -406,8 +425,9 @@ void MathLab::on_treeWidget_customContextMenuRequested(const QPoint& p)
 	QAction * delitem = new QAction(QString::fromLocal8Bit("删除"), ui.treeWidget_Class);
 	connect(delitem, SIGNAL(triggered()), this, SLOT(on_delItem_triggered()));
 	QMenu * menu = new QMenu(ui.treeWidget_Class);
-		
-	if (item)
+	
+	bool isItem = ui.treeWidget_Class->indexAt(p).isValid();
+	if (isItem)
 	{
 		menu->addAction(additem);
 		menu->addAction(edititem);
@@ -417,6 +437,7 @@ void MathLab::on_treeWidget_customContextMenuRequested(const QPoint& p)
 	}
 	else
 	{
+		ui.treeWidget_Class->setCurrentItem(NULL);
 		menu->addAction(additem);
 		menu->addAction(delitem);
 		menu->exec(QCursor::pos());
@@ -443,6 +464,14 @@ void MathLab::on_addItem_triggered()
 {
 	bool ok;
 	QString text = QInputDialog::getText(this, tr("新增教室"),tr("请输入教室名称："), QLineEdit::Normal,0, &ok);
+
+	if (CheckExistInTree(text))
+	{
+		QMessageBox::warning(this, QString::fromLocal8Bit("教室已存在"),  QString::fromLocal8Bit("当前输入教室已存在！")
+			, QMessageBox::Ok, QMessageBox::Cancel);
+		return;
+	}
+
 	if (ok && !text.isEmpty())
 	{
 		QTreeWidgetItem * item = ui.treeWidget_Class->currentItem();
@@ -466,6 +495,7 @@ void MathLab::on_addItem_triggered()
 			ui.treeWidget_Class->addTopLevelItem(additem);
 		}
 	}
+	ui.treeWidget_Class->expandAll();
 }
 
 void MathLab::on_editItem_triggered()
@@ -475,6 +505,13 @@ void MathLab::on_editItem_triggered()
 	{
 		bool ok;
 		QString text = QInputDialog::getText(this, tr("修改教室"),tr("请输入教室名称："), QLineEdit::Normal, item->text(0), &ok);
+
+		if (CheckExistInTree(text))
+		{
+			QMessageBox::warning(this, QString::fromLocal8Bit("教室已存在"),  QString::fromLocal8Bit("当前输入教室已存在！")
+				, QMessageBox::Ok, QMessageBox::Cancel);
+			return;
+		}
 
 		if (ok && !text.isEmpty())
 		{
@@ -489,13 +526,13 @@ void MathLab::on_delItem_triggered()
 	if (item)
 	{
 		int count = item->childCount();
-		if(count==0)//没有子节点，直接删除
+		if(count == 0)//没有子节点，直接删除
 		{
 			delete item;
 			return;
 		}
 
-		for(int i=0; i<count; i++)
+		for(int i = 0; i < count; i++)
 		{
 			QTreeWidgetItem *childItem = item->child(0);//删除子节点
 			delete childItem;

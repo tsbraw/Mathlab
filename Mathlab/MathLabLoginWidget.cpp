@@ -103,14 +103,6 @@ void MathLabLoginWidget::on_Edit_clicked()
 	if (it != _Userlst.end())
 	{
 		ui.label_Class->setHidden(false);
-		if (GetUserTypeByCheck() == Teachers)
-		{
-			ui.label_Class->setText(QString::fromLocal8Bit("教师姓名："));
-		}
-		else
-		{
-			ui.label_Class->setText(QString::fromLocal8Bit("班级："));
-		}
 		ui.lineEdit_Class->setHidden(false);
 		ui.pushButton_login->setHidden(true);
 		ui.pushButton_edit->setHidden(true);
@@ -130,14 +122,6 @@ void MathLabLoginWidget::on_Register_clicked()
 	setWindowTitle("Register");
 
 	ui.label_Class->setHidden(false);
-	if (GetUserTypeByCheck() == Teachers)
-	{
-		ui.label_Class->setText(QString::fromLocal8Bit("教师姓名："));
-	}
-	else
-	{
-		ui.label_Class->setText(QString::fromLocal8Bit("班级："));
-	}
 	ui.lineEdit_Class->setHidden(false);
 	ui.pushButton_login->setHidden(true);
 	ui.pushButton_edit->setHidden(true);
@@ -201,6 +185,8 @@ void MathLabLoginWidget::on_checkBox_stu_stateChanged(int arg)
 		ui.checkBox_tea->blockSignals(true);
 		ui.checkBox_tea->setCheckState(Qt::CheckState::Unchecked);
 		ui.checkBox_tea->blockSignals(false);
+		
+		ui.label_Class->setText(QString::fromLocal8Bit("班级："));
 	}
 }
 
@@ -211,6 +197,8 @@ void MathLabLoginWidget::on_checkBox_tea_stateChanged(int arg)
 		ui.checkBox_stu->blockSignals(true);
 		ui.checkBox_stu->setCheckState(Qt::CheckState::Unchecked);
 		ui.checkBox_stu->blockSignals(false);
+
+		ui.label_Class->setText(QString::fromLocal8Bit("教师姓名："));
 	}
 }
 
