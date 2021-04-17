@@ -40,14 +40,14 @@ void MathLabDataService::SetDateCourseList(DateCourseInfoList dateList)
 	_DateCourseList = dateList;
 }
 
-UesrInfoList MathLabDataService::GetUserList() const
+UserInfoList MathLabDataService::GetUserList() const
 {
 	return _UserList;
 }
 
-void MathLabDataService::SetUserIntoList(UesrInfoPtr user)
+void MathLabDataService::SetUserList(UserInfoList userLst)
 {
-	_UserList.push_back(user);
+	_UserList = userLst;
 }
 
 void MathLabDataService::Init()

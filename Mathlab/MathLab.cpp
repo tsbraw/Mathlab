@@ -13,6 +13,7 @@ Q_DECLARE_METATYPE(CourseInfoPtr);
 
 MathLab::MathLab(QWidget *parent, Qt::WFlags flags, UsersTpye userType)
 	: QMainWindow(parent, flags)
+	, MathLabDataService()
 {
 	ui.setupUi(this);
 

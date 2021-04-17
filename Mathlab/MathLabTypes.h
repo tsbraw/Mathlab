@@ -15,16 +15,24 @@ enum UsersTpye
 };
 
 //用户信息
-struct UesrInfo 
+struct UserInfo 
 {
+	UserInfo()
+		:UserName("")
+		,Usertype(Students)
+		,UserPwd("")
+	{
+
+	}
+
 	QString UserName;
 
 	UsersTpye Usertype;
 
 	QString UserPwd;
 };
-typedef boost::shared_ptr<UesrInfo> UesrInfoPtr;
-typedef std::vector<UesrInfoPtr> UesrInfoList;
+typedef boost::shared_ptr<UserInfo> UserInfoPtr;
+typedef std::vector<UserInfoPtr> UserInfoList;
 
 //选课信息
 struct CourseInfo
@@ -33,6 +41,8 @@ struct CourseInfo
 		: CourseName("")
 		, TeacherName("")
 		, ProjectInfo("")
+		, LabName("")
+		, CourseIdx(0)
 	{
 
 	}

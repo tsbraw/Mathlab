@@ -17,8 +17,8 @@ public:
 
 	LabCourseInoList GetLabCourseList() const;
 
-	UesrInfoList GetUserList() const;
-	void SetUserIntoList(UesrInfoPtr user);
+	UserInfoList GetUserList() const;
+	void SetUserList(UserInfoList userLst);
 
 public:
 	
@@ -38,7 +38,7 @@ public:
 private:
 	CourseInfoList _CourseList;
 
-	UesrInfoList _UserList;
+	UserInfoList _UserList;
 
 	QString _Host;
 	int _Port;

@@ -13,17 +13,36 @@
   <property name="windowTitle">
    <string>MathLabLoginWidget</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" rowstretch="0,1,1,0,0,0">
-   <item row="1" column="0">
-    <widget class="QLabel" name="label">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>30</height>
-      </size>
-     </property>
+  <layout class="QGridLayout" name="gridLayout" rowstretch="0,1,1,0,0,0,0,0,0,0">
+   <item row="8" column="0" colspan="2">
+    <widget class="QPushButton" name="pushButton_edit">
      <property name="text">
-      <string>用户名：</string>
+      <string>修改</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QCheckBox" name="checkBox_stu">
+       <property name="text">
+        <string>学生端</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_tea">
+       <property name="text">
+        <string>老师端</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="5" column="1">
+    <widget class="QLabel" name="label_note">
+     <property name="text">
+      <string>提示：</string>
      </property>
     </widget>
    </item>
@@ -50,6 +69,26 @@
      </property>
     </widget>
    </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QPushButton" name="pushButton_login">
+     <property name="text">
+      <string>登录</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>用户名：</string>
+     </property>
+    </widget>
+   </item>
    <item row="2" column="1">
     <widget class="QLineEdit" name="lineEdit_Password">
      <property name="minimumSize">
@@ -60,44 +99,19 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0" colspan="2">
-    <widget class="QPushButton" name="pushButton_login">
-     <property name="text">
-      <string>登录</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0" colspan="2">
+   <item row="7" column="0" colspan="2">
     <widget class="QPushButton" name="pushButton_register">
      <property name="text">
       <string>注册</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="0" colspan="2">
-    <widget class="QPushButton" name="pushButton_edit">
+   <item row="9" column="0" colspan="2">
+    <widget class="QPushButton" name="pushButton_Yes">
      <property name="text">
-      <string>修改</string>
+      <string>确定</string>
      </property>
     </widget>
-   </item>
-   <item row="0" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QCheckBox" name="checkBox_stu">
-       <property name="text">
-        <string>学生端</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_tea">
-       <property name="text">
-        <string>老师端</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </item>
   </layout>
  </widget>

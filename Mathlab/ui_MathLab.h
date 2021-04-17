@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'MathLabBG4380.ui'
+** Form generated from reading UI file 'MathLabHp9948.ui'
 **
-** Created: Fri Apr 16 21:52:03 2021
+** Created: Sat Apr 17 10:45:54 2021
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MATHLABBG4380_H
-#define MATHLABBG4380_H
+#ifndef MATHLABHP9948_H
+#define MATHLABHP9948_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -52,7 +52,7 @@ public:
     {
         if (MathLabClass->objectName().isEmpty())
             MathLabClass->setObjectName(QString::fromUtf8("MathLabClass"));
-        MathLabClass->resize(838, 526);
+        MathLabClass->resize(1069, 542);
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/EmitCrash/lab.png"), QSize(), QIcon::Normal, QIcon::Off);
         MathLabClass->setWindowIcon(icon);
@@ -137,7 +137,7 @@ public:
         MathLabClass->setStatusBar(statusbar);
         menubar = new QMenuBar(MathLabClass);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 838, 26));
+        menubar->setGeometry(QRect(0, 0, 1069, 26));
         menu_edit = new QMenu(menubar);
         menu_edit->setObjectName(QString::fromUtf8("menu_edit"));
         menu_search = new QMenu(menubar);
@@ -183,7 +183,7 @@ public:
         ___qtablewidgetitem11->setText(QApplication::translate("MathLabClass", "\347\254\254\344\272\224\345\244\247\350\212\202", 0, QApplication::UnicodeUTF8));
         pushButton_new->setText(QApplication::translate("MathLabClass", "\346\226\260\345\242\236", 0, QApplication::UnicodeUTF8));
         pushButton_del->setText(QApplication::translate("MathLabClass", "\345\210\240\351\231\244", 0, QApplication::UnicodeUTF8));
-        menu_edit->setTitle(QApplication::translate("MathLabClass", "\347\274\226\350\276\221", 0, QApplication::UnicodeUTF8));
+        menu_edit->setTitle(QApplication::translate("MathLabClass", "\346\210\221\347\232\204", 0, QApplication::UnicodeUTF8));
         menu_search->setTitle(QApplication::translate("MathLabClass", "\346\237\245\350\257\242", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
@@ -195,4 +195,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MATHLABBG4380_H
+#endif // MATHLABHP9948_H
