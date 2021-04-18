@@ -58,8 +58,17 @@ private slots:
 	// 删除教室
 	void on_delItem_triggered();
 
+	// 返回登录界面
+	void ReturnToLogin();
+
 	// 展示我的课程信息
 	void showMineCourses();
+
+	// 查询指定班级的课程信息
+	void SearchClassCourse();
+
+	// 查找具体班级课程信息/教师课程安排
+	void SearchByUserClass(CourseInfoList &courseLst, QString searchClass, bool teachersPaln);
 
 private:
 

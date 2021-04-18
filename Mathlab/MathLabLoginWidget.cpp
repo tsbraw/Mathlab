@@ -19,8 +19,9 @@ MathLabLoginWidget::MathLabLoginWidget(QWidget *parent)
 	ui.label_note->setStyleSheet("color:red;");
 	ui.label_note->setAlignment(Qt::AlignRight);
 
-	// 隐藏确定修改和编辑按钮
+	// 隐藏确定和返回按钮
 	ui.pushButton_Yes->setHidden(true);
+	ui.pushButton_return->setHidden(true);
 
 	// 班级信息不用输入
 	ui.label_Class->setHidden(true);
@@ -40,6 +41,7 @@ MathLabLoginWidget::MathLabLoginWidget(QWidget *parent)
 	connect(ui.pushButton_edit, SIGNAL(clicked()), this, SLOT(on_Edit_clicked()));
 	connect(ui.pushButton_register, SIGNAL(clicked()), this, SLOT(on_Register_clicked()));
 	connect(ui.pushButton_Yes, SIGNAL(clicked()), this, SLOT(on_Yes_clicked()));
+	connect(ui.pushButton_return, SIGNAL(clicked()), this, SLOT(on_Return_clicked()));
 	connect(ui.checkBox_stu, SIGNAL(stateChanged(int)), this, SLOT(on_checkBox_stu_stateChanged(int)));
 	connect(ui.checkBox_tea, SIGNAL(stateChanged(int)), this, SLOT(on_checkBox_tea_stateChanged(int)));
 	connect(ui.lineEdit_Name, SIGNAL(textEdited(const QString)), this, SLOT(on_lineEdit_textEdited(const QString)));
@@ -71,13 +73,18 @@ UserInfoPtr MathLabLoginWidget::GetCurrentUser() const
 
 void MathLabLoginWidget::on_Longin_clicked()
 {
+	ui.label_note->setHidden(true);
 	QString userName = ui.lineEdit_Name->text();
 	QString userPwd = ui.lineEdit_Password->text();
-	UserInfoList::iterator it = std::find_if(_Userlst.begin(), _Userlst.end(), boost::bind(&UserInfo::UserName, _1) == userName);
+	UsersTpye userType = GetUserTypeByCheck();
+
+	UserInfoList::iterator it = std::find_if(_Userlst.begin(), _Userlst.end(), [&](UserInfoPtr user){
+		return user->Usertype == userType && user->UserName == userName;
+	});
 	if (it != _Userlst.end())
 	{
 		_user = *it;
-		if (_user->UserPwd == userPwd && _user->Usertype == GetUserTypeByCheck())
+		if (_user->UserPwd == userPwd)
 		{
 			this->accept();
 		}
@@ -96,10 +103,15 @@ void MathLabLoginWidget::on_Longin_clicked()
 
 void MathLabLoginWidget::on_Edit_clicked()
 {
+	ui.label_note->setHidden(true);
 	setWindowTitle("Edit");
 	QString userName = ui.lineEdit_Name->text();
 	QString userPwd = ui.lineEdit_Password->text();
-	UserInfoList::iterator it = std::find_if(_Userlst.begin(), _Userlst.end(), boost::bind(&UserInfo::UserName, _1) == userName);
+	UsersTpye userType = GetUserTypeByCheck();
+
+	UserInfoList::iterator it = std::find_if(_Userlst.begin(), _Userlst.end(), [&](UserInfoPtr user){
+		return user->Usertype == userType && user->UserName == userName;
+	});
 	if (it != _Userlst.end())
 	{
 		ui.label_Class->setHidden(false);
@@ -108,6 +120,7 @@ void MathLabLoginWidget::on_Edit_clicked()
 		ui.pushButton_edit->setHidden(true);
 		ui.pushButton_register->setHidden(true);
 		ui.pushButton_Yes->setHidden(false);
+		ui.pushButton_return->setHidden(false);
 
 		_IsRegister = false;
 	}
@@ -119,6 +132,7 @@ void MathLabLoginWidget::on_Edit_clicked()
 
 void MathLabLoginWidget::on_Register_clicked()
 {
+	ui.label_note->setHidden(true);
 	setWindowTitle("Register");
 
 	ui.label_Class->setHidden(false);
@@ -127,17 +141,22 @@ void MathLabLoginWidget::on_Register_clicked()
 	ui.pushButton_edit->setHidden(true);
 	ui.pushButton_register->setHidden(true);
 	ui.pushButton_Yes->setHidden(false);
+	ui.pushButton_return->setHidden(false);
 
 	_IsRegister = true;
 }
 
 void MathLabLoginWidget::on_Yes_clicked()
 {
+	ui.label_note->setHidden(true);
 	QString userName = ui.lineEdit_Name->text();
 	QString userClass = ui.lineEdit_Class->text();
 	QString userPwd = ui.lineEdit_Password->text();
+	UsersTpye userType = GetUserTypeByCheck();
 	
-	UserInfoList::iterator it = std::find_if(_Userlst.begin(), _Userlst.end(), boost::bind(&UserInfo::UserName, _1) == userName);
+	UserInfoList::iterator it = std::find_if(_Userlst.begin(), _Userlst.end(), [&](UserInfoPtr user){
+		return user->Usertype == userType && user->UserName == userName;
+	});
 	if (it != _Userlst.end())
 	{
 		if (_IsRegister)
@@ -156,7 +175,7 @@ void MathLabLoginWidget::on_Yes_clicked()
 	addUser->UserName = userName;
 	addUser->UserPwd = userPwd;
 	addUser->UserClass = userClass;
-	addUser->Usertype = GetUserTypeByCheck();
+	addUser->Usertype = userType;
 
 	_Userlst.push_back(addUser);
 	if (_IsRegister)
@@ -169,6 +188,11 @@ void MathLabLoginWidget::on_Yes_clicked()
 	}
 
 	SetUserList(_Userlst);
+}
+
+void MathLabLoginWidget::on_Return_clicked()
+{
+	ui.label_note->setHidden(true);
 	setWindowTitle("Login");
 	ui.label_Class->setHidden(true);
 	ui.lineEdit_Class->setHidden(true);
@@ -176,10 +200,12 @@ void MathLabLoginWidget::on_Yes_clicked()
 	ui.pushButton_edit->setHidden(false);
 	ui.pushButton_register->setHidden(false);
 	ui.pushButton_Yes->setHidden(true);
+	ui.pushButton_return->setHidden(true);
 }
 
 void MathLabLoginWidget::on_checkBox_stu_stateChanged(int arg)
 {
+	ui.label_note->setHidden(true);
 	if(arg == Qt::CheckState::Checked)
 	{
 		ui.checkBox_tea->blockSignals(true);
@@ -192,6 +218,7 @@ void MathLabLoginWidget::on_checkBox_stu_stateChanged(int arg)
 
 void MathLabLoginWidget::on_checkBox_tea_stateChanged(int arg)
 {
+	ui.label_note->setHidden(true);
 	if(arg == Qt::CheckState::Checked)
 	{
 		ui.checkBox_stu->blockSignals(true);

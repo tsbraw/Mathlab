@@ -28,6 +28,8 @@ public slots:
 	// 修改和注册时将新增信息写入
 	void on_Yes_clicked();
 
+	void on_Return_clicked();
+
 	void on_checkBox_stu_stateChanged(int arg);
 
 	void on_checkBox_tea_stateChanged(int arg);

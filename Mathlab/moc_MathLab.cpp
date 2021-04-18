@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MathLab.h'
 **
-** Created: Sun Apr 18 00:07:00 2021
+** Created: Sun Apr 18 21:11:52 2021
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MathLab[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      17,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -45,6 +45,9 @@ static const uint qt_meta_data_MathLab[] = {
      436,    8,    8,    8, 0x08,
      460,    8,    8,    8, 0x08,
      483,    8,    8,    8, 0x08,
+     499,    8,    8,    8, 0x08,
+     517,    8,    8,    8, 0x08,
+     572,  537,    8,    8, 0x08,
 
        0        // eod
 };
@@ -61,7 +64,10 @@ static const char qt_meta_stringdata_MathLab[] = {
     "p\0on_treeWidget_customContextMenuRequested(QPoint)\0"
     "item,col\0on_treeWidget_itemClicked(QTreeWidgetItem*,int)\0"
     "on_addItem_triggered()\0on_editItem_triggered()\0"
-    "on_delItem_triggered()\0showMineCourses()\0"
+    "on_delItem_triggered()\0ReturnToLogin()\0"
+    "showMineCourses()\0SearchClassCourse()\0"
+    "courseLst,searchClass,teachersPaln\0"
+    "SearchByUserClass(CourseInfoList&,QString,bool)\0"
 };
 
 void MathLab::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -83,7 +89,10 @@ void MathLab::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 10: _t->on_addItem_triggered(); break;
         case 11: _t->on_editItem_triggered(); break;
         case 12: _t->on_delItem_triggered(); break;
-        case 13: _t->showMineCourses(); break;
+        case 13: _t->ReturnToLogin(); break;
+        case 14: _t->showMineCourses(); break;
+        case 15: _t->SearchClassCourse(); break;
+        case 16: _t->SearchByUserClass((*reinterpret_cast< CourseInfoList(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< bool(*)>(_a[3]))); break;
         default: ;
         }
     }
@@ -123,9 +132,9 @@ int MathLab::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 17;
     }
     return _id;
 }

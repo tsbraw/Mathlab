@@ -19,15 +19,15 @@ MathLab::MathLab(QWidget *parent, Qt::WFlags flags, UserInfoPtr userinfo)
 {
 	ui.setupUi(this);
 
+	_myInfo = userinfo;
+
+	setWindowIcon(QIcon(":/Icon/mathLab.ico"));
+
 	Init();
 
 	InitSystemTray();
 
 	InitTreeWidget();
-
-	setWindowIcon(QIcon(":/Icon/mathLab.ico"));
-
-	_myInfo = userinfo;
 
 	if (_myInfo->Usertype == Students)
 	{
@@ -72,9 +72,13 @@ void MathLab::Init()
 	QAction * cInfo = new QAction(QString::fromLocal8Bit("课程安排"),this);
 	connect(cInfo,SIGNAL(triggered()),this,SLOT(showMineCourses()));
 	QAction * quit = new QAction(QString::fromLocal8Bit("登出"),this);
-	connect(quit,SIGNAL(triggered()),qApp,SLOT(quit()));
+	connect(quit,SIGNAL(triggered()),this,SLOT(ReturnToLogin()));
 	ui.menu_mine->addAction(cInfo);
 	ui.menu_mine->addAction(quit);
+
+	QAction * sch = new QAction(QString::fromLocal8Bit("按班级"),this);
+	connect(sch,SIGNAL(triggered()),this,SLOT(SearchClassCourse()));
+	ui.menu_search->addAction(sch);
 }
 
 MathLab::~MathLab()
@@ -542,6 +546,11 @@ void MathLab::on_delItem_triggered()
 	}
 }
 
+void MathLab::ReturnToLogin()
+{
+	qApp->quit();
+}
+
 void MathLab::showMineCourses()
 {
 	//CourseInfoList courseLst = GetCourseList(); //TODO
@@ -557,6 +566,38 @@ void MathLab::showMineCourses()
 		}
 	}
 
+	QString searchClass = _myInfo->UserClass;
+
+	bool teachersPaln = _myInfo->Usertype == Teachers ? true : false;
+
+	SearchByUserClass(courseLst, searchClass, teachersPaln);
+}
+
+void MathLab::SearchClassCourse()
+{
+	CourseInfoList courseLst;
+	LabCourseInoList::iterator it1 = _LabList.begin();
+	for (; it1 != _LabList.end(); it1++)
+	{
+		DateCourseInfoList dateLst = it1->second;
+		DateCourseInfoList::iterator it2 = dateLst.begin();
+		for (; it2 != dateLst.end(); it2++)
+		{
+			courseLst.insert(courseLst.end(),it2->second.begin(),it2->second.end());
+		}
+	}
+
+	bool ok = false;
+	QString text = QInputDialog::getText(this, tr("按班级查询"),tr("请输入查询班级名称："), QLineEdit::Normal, 0, &ok);
+
+	if (ok && !text.isEmpty())
+	{
+		SearchByUserClass(courseLst, text, false);
+	}
+}
+
+void MathLab::SearchByUserClass(CourseInfoList &courseLst, QString searchClass, bool teachersPaln)
+{
 	QDialog * mydlg = new QDialog();
 	mydlg->setWindowTitle(QString::fromLocal8Bit("我的课程信息"));
 	QGridLayout * layout = new QGridLayout();
@@ -578,10 +619,11 @@ void MathLab::showMineCourses()
 	for (int i = 0; i < courseLst.size(); i++)
 	{
 		CourseInfoPtr courseInfo = courseLst.at(i);
-		if (_myInfo->Usertype == Students)
+		// 按班级信息查询
+		if (!teachersPaln)
 		{
 			std::vector<QString> ClassLst = courseInfo->ClassNames;
-			std::vector<QString>::iterator it = std::find(ClassLst.begin(), ClassLst.end(), _myInfo->UserClass);
+			std::vector<QString>::iterator it = std::find(ClassLst.begin(), ClassLst.end(), searchClass);
 			if (it != ClassLst.end())
 			{
 				QTreeWidgetItem *item = new QTreeWidgetItem();
@@ -595,9 +637,9 @@ void MathLab::showMineCourses()
 				myTree->addTopLevelItem(item);
 			}
 		}
-		else
+		else //按教师身份查询
 		{
-			if (courseInfo->TeacherName == _myInfo->UserClass)
+			if (courseInfo->TeacherName == searchClass)
 			{
 				QTreeWidgetItem *item = new QTreeWidgetItem();
 				item->setText(0, courseInfo->CourseName);
@@ -610,8 +652,8 @@ void MathLab::showMineCourses()
 				myTree->addTopLevelItem(item);
 			}
 		}
-		
+
 	}
-	
+
 	mydlg->exec();
 }
