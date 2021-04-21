@@ -27,6 +27,10 @@ MathLabLoginWidget::MathLabLoginWidget(QWidget *parent)
 	ui.label_Class->setHidden(true);
 	ui.lineEdit_Class->setHidden(true);
 
+	// 确认密码信息
+	ui.label_pwd->setHidden(true);
+	ui.lineEdit_Repwd->setHidden(true);
+
 	//将密码框的显示设置为黑点，不可见
 	 ui.lineEdit_Password->setEchoMode(QLineEdit::Password);
 
@@ -114,6 +118,8 @@ void MathLabLoginWidget::on_Edit_clicked()
 	});
 	if (it != _Userlst.end())
 	{
+		ui.label_pwd->setHidden(false);
+		ui.lineEdit_Repwd->setHidden(false);
 		ui.label_Class->setHidden(false);
 		ui.lineEdit_Class->setHidden(false);
 		ui.pushButton_login->setHidden(true);
@@ -135,6 +141,8 @@ void MathLabLoginWidget::on_Register_clicked()
 	ui.label_note->setHidden(true);
 	setWindowTitle("Register");
 
+	ui.label_pwd->setHidden(false);
+	ui.lineEdit_Repwd->setHidden(false);
 	ui.label_Class->setHidden(false);
 	ui.lineEdit_Class->setHidden(false);
 	ui.pushButton_login->setHidden(true);
@@ -152,6 +160,7 @@ void MathLabLoginWidget::on_Yes_clicked()
 	QString userName = ui.lineEdit_Name->text();
 	QString userClass = ui.lineEdit_Class->text();
 	QString userPwd = ui.lineEdit_Password->text();
+	QString userRePwd = ui.lineEdit_Repwd->text();
 	UsersTpye userType = GetUserTypeByCheck();
 	
 	UserInfoList::iterator it = std::find_if(_Userlst.begin(), _Userlst.end(), [&](UserInfoPtr user){
@@ -177,14 +186,27 @@ void MathLabLoginWidget::on_Yes_clicked()
 	addUser->UserClass = userClass;
 	addUser->Usertype = userType;
 
+	if (userRePwd.isEmpty() && !userPwd.isEmpty())
+	{
+		LogNoteInfo(QString::fromLocal8Bit("请输入确认密码！"));
+		return;
+	}
+	else if (userRePwd != userPwd)
+	{
+		LogNoteInfo(QString::fromLocal8Bit("确认密码不一致！"));
+		return;
+	}
+
 	_Userlst.push_back(addUser);
 	if (_IsRegister)
 	{
 		LogNoteInfo(QString::fromLocal8Bit("注册成功！"));
+		on_Return_clicked();
 	}
 	else
 	{
 		LogNoteInfo(QString::fromLocal8Bit("修改成功！"));
+		on_Return_clicked();
 	}
 
 	SetUserList(_Userlst);
@@ -194,6 +216,8 @@ void MathLabLoginWidget::on_Return_clicked()
 {
 	ui.label_note->setHidden(true);
 	setWindowTitle("Login");
+	ui.label_pwd->setHidden(true);
+	ui.lineEdit_Repwd->setHidden(true);
 	ui.label_Class->setHidden(true);
 	ui.lineEdit_Class->setHidden(true);
 	ui.pushButton_login->setHidden(false);

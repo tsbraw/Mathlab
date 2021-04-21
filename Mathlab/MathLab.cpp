@@ -306,7 +306,7 @@ void MathLab::InitSystemTray()
 	menu->addAction(quit);
 	pSystemTray->setContextMenu(menu);
 
-	pSystemTray->setIcon(QIcon(QString::fromLocal8Bit(":/Icon/mathLab.ico")));
+	pSystemTray->setIcon(QIcon(QString::fromLocal8Bit("../Mathlab/mathLab.ico")));
 	pSystemTray->setToolTip(QString::fromLocal8Bit("MathLab"));
 	
 

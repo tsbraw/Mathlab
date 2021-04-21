@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'MathLabHp3976.ui'
+** Form generated from reading UI file 'MathLabgqHp32.ui'
 **
-** Created: Sat Apr 17 19:26:59 2021
+** Created: Wed Apr 21 20:25:38 2021
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MATHLABHP3976_H
-#define MATHLABHP3976_H
+#ifndef MATHLABGQHP32_H
+#define MATHLABGQHP32_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -195,4 +195,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MATHLABHP3976_H
+#endif // MATHLABGQHP32_H
