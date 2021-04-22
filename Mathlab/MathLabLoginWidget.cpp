@@ -33,7 +33,7 @@ MathLabLoginWidget::MathLabLoginWidget(QWidget *parent)
 
 	//将密码框的显示设置为黑点，不可见
 	 ui.lineEdit_Password->setEchoMode(QLineEdit::Password);
-
+	 ui.lineEdit_Repwd->setEchoMode(QLineEdit::Password);
 	 setWindowTitle("Login");
 
 	_IsRegister = false;
