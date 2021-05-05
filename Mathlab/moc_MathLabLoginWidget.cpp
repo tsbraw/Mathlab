@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MathLabLoginWidget.h'
 **
-** Created: Wed Apr 21 20:17:08 2021
+** Created: Wed May 5 14:06:46 2021
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
