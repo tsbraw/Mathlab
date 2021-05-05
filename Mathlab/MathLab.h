@@ -45,6 +45,7 @@ public slots:
 	void on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason);
 
 private slots:
+	// π‹¿ÌΩÃ “
 	void on_treeWidget_customContextMenuRequested(const QPoint& p);
 
 	void on_treeWidget_itemClicked(QTreeWidgetItem *item, int col);

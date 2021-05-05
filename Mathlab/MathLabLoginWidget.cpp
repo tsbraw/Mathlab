@@ -1,6 +1,7 @@
 #include <boost/bind.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/smart_ptr/make_shared.hpp>
+#include <pugixml.hpp>
 #include "MathLabTypes.h"
 #include "MathLabLoginWidget.h"
 
@@ -10,6 +11,8 @@ MathLabLoginWidget::MathLabLoginWidget(QWidget *parent)
 	, MathLabDataService()
 {
 	ui.setupUi(this);
+
+	Init();
 
 	ui.checkBox_stu->setChecked(Qt::CheckState::Checked);
 	ui.checkBox_tea->setChecked(Qt::CheckState::Unchecked);
@@ -75,6 +78,33 @@ UserInfoPtr MathLabLoginWidget::GetCurrentUser() const
 	return _user;
 }
 
+void MathLabLoginWidget::Init()
+{
+	pugi::xml_document doc;
+
+	pugi::xml_parse_result result = doc.load_file("D:\\Desktop\\proC++\\MathLab\\Mathlab\\config/LoginConfig.xml");
+
+	if (result.status == pugi::status_ok)
+	{
+		pugi::xml_node managerNode = doc.child("mananger");
+		if (managerNode)
+		{
+			pugi::xml_node manaName = managerNode.child("managername");
+			pugi::xml_node mamaPwd = managerNode.child("managerpwd");
+
+			if (mamaPwd && manaName)
+			{
+				_ManagerName = manaName.text().as_string();
+				_ManagerPwd = mamaPwd.text().as_string();
+			}
+		}
+	}
+	else
+	{
+		/*std::cout << "Load ManagerInfo Failed!" << std::endl;*/
+	}
+}
+
 void MathLabLoginWidget::on_Longin_clicked()
 {
 	ui.label_note->setHidden(true);
@@ -82,24 +112,37 @@ void MathLabLoginWidget::on_Longin_clicked()
 	QString userPwd = ui.lineEdit_Password->text();
 	UsersTpye userType = GetUserTypeByCheck();
 
-	UserInfoList::iterator it = std::find_if(_Userlst.begin(), _Userlst.end(), [&](UserInfoPtr user){
-		return user->Usertype == userType && user->UserName == userName;
-	});
-	if (it != _Userlst.end())
+	if (userName == _ManagerName && userPwd == _ManagerPwd)
 	{
-		_user = *it;
-		if (_user->UserPwd == userPwd)
-		{
-			this->accept();
-		}
-		else
-		{
-			LogNoteInfo(QString::fromLocal8Bit("密码错误，请重新输入！"));
-		}
+		LogNoteInfo(QString::fromLocal8Bit("欢迎管理员登录！"));
+
+		_user->UserName = userName;
+		_user->UserPwd = userPwd;
+		_user->Usertype = Manager;
+
+		this->accept();
 	}
 	else
 	{
-		LogNoteInfo(QString::fromLocal8Bit("用户名不存在！"));
+		UserInfoList::iterator it = std::find_if(_Userlst.begin(), _Userlst.end(), [&](UserInfoPtr user){
+			return user->Usertype == userType && user->UserName == userName;
+		});
+		if (it != _Userlst.end())
+		{
+			_user = *it;
+			if (_user->UserPwd == userPwd)
+			{
+				this->accept();
+			}
+			else
+			{
+				LogNoteInfo(QString::fromLocal8Bit("密码错误，请重新输入！"));
+			}
+		}
+		else
+		{
+			LogNoteInfo(QString::fromLocal8Bit("用户名不存在！"));
+		}
 	}
 
 	//this->accept();
@@ -113,27 +156,35 @@ void MathLabLoginWidget::on_Edit_clicked()
 	QString userPwd = ui.lineEdit_Password->text();
 	UsersTpye userType = GetUserTypeByCheck();
 
-	UserInfoList::iterator it = std::find_if(_Userlst.begin(), _Userlst.end(), [&](UserInfoPtr user){
-		return user->Usertype == userType && user->UserName == userName;
-	});
-	if (it != _Userlst.end())
+	if (userName == _ManagerName)
 	{
-		ui.label_pwd->setHidden(false);
-		ui.lineEdit_Repwd->setHidden(false);
-		ui.label_Class->setHidden(false);
-		ui.lineEdit_Class->setHidden(false);
-		ui.pushButton_login->setHidden(true);
-		ui.pushButton_edit->setHidden(true);
-		ui.pushButton_register->setHidden(true);
-		ui.pushButton_Yes->setHidden(false);
-		ui.pushButton_return->setHidden(false);
-
-		_IsRegister = false;
+		LogNoteInfo(QString::fromLocal8Bit("该账号已被使用！"));
 	}
 	else
 	{
-		LogNoteInfo(QString::fromLocal8Bit("用户名不存在！"));
+		UserInfoList::iterator it = std::find_if(_Userlst.begin(), _Userlst.end(), [&](UserInfoPtr user){
+			return user->Usertype == userType && user->UserName == userName;
+		});
+		if (it != _Userlst.end())
+		{
+			ui.label_pwd->setHidden(false);
+			ui.lineEdit_Repwd->setHidden(false);
+			ui.label_Class->setHidden(false);
+			ui.lineEdit_Class->setHidden(false);
+			ui.pushButton_login->setHidden(true);
+			ui.pushButton_edit->setHidden(true);
+			ui.pushButton_register->setHidden(true);
+			ui.pushButton_Yes->setHidden(false);
+			ui.pushButton_return->setHidden(false);
+
+			_IsRegister = false;
+		}
+		else
+		{
+			LogNoteInfo(QString::fromLocal8Bit("用户名不存在！"));
+		}
 	}
+	
 }
 
 void MathLabLoginWidget::on_Register_clicked()
@@ -163,53 +214,61 @@ void MathLabLoginWidget::on_Yes_clicked()
 	QString userRePwd = ui.lineEdit_Repwd->text();
 	UsersTpye userType = GetUserTypeByCheck();
 	
-	UserInfoList::iterator it = std::find_if(_Userlst.begin(), _Userlst.end(), [&](UserInfoPtr user){
-		return user->Usertype == userType && user->UserName == userName;
-	});
-	if (it != _Userlst.end())
+	if (userName == _ManagerName)
 	{
-		if (_IsRegister)
-		{
-			LogNoteInfo(QString::fromLocal8Bit("该用户名已存在！"));
-			return;
-		}
-		else
-		{
-			it = _Userlst.erase(it);
-		}
-		
-	}
-
-	UserInfoPtr addUser = boost::make_shared<UserInfo>();
-	addUser->UserName = userName;
-	addUser->UserPwd = userPwd;
-	addUser->UserClass = userClass;
-	addUser->Usertype = userType;
-
-	if (userRePwd.isEmpty() && !userPwd.isEmpty())
-	{
-		LogNoteInfo(QString::fromLocal8Bit("请输入确认密码！"));
-		return;
-	}
-	else if (userRePwd != userPwd)
-	{
-		LogNoteInfo(QString::fromLocal8Bit("确认密码不一致！"));
-		return;
-	}
-
-	_Userlst.push_back(addUser);
-	if (_IsRegister)
-	{
-		LogNoteInfo(QString::fromLocal8Bit("注册成功！"));
-		on_Return_clicked();
+		LogNoteInfo(QString::fromLocal8Bit("该账号已被使用！"));
 	}
 	else
 	{
-		LogNoteInfo(QString::fromLocal8Bit("修改成功！"));
-		on_Return_clicked();
-	}
+		UserInfoList::iterator it = std::find_if(_Userlst.begin(), _Userlst.end(), [&](UserInfoPtr user){
+			return user->Usertype == userType && user->UserName == userName;
+		});
+		if (it != _Userlst.end())
+		{
+			if (_IsRegister)
+			{
+				LogNoteInfo(QString::fromLocal8Bit("该用户名已存在！"));
+				return;
+			}
+			else
+			{
+				it = _Userlst.erase(it);
+			}
 
-	SetUserList(_Userlst);
+		}
+
+		UserInfoPtr addUser = boost::make_shared<UserInfo>();
+		addUser->UserName = userName;
+		addUser->UserPwd = userPwd;
+		addUser->UserClass = userClass;
+		addUser->Usertype = userType;
+
+		if (userRePwd.isEmpty() && !userPwd.isEmpty())
+		{
+			LogNoteInfo(QString::fromLocal8Bit("请输入确认密码！"));
+			return;
+		}
+		else if (userRePwd != userPwd)
+		{
+			LogNoteInfo(QString::fromLocal8Bit("确认密码不一致！"));
+			return;
+		}
+
+		_Userlst.push_back(addUser);
+		if (_IsRegister)
+		{
+			LogNoteInfo(QString::fromLocal8Bit("注册成功！"));
+			on_Return_clicked();
+		}
+		else
+		{
+			LogNoteInfo(QString::fromLocal8Bit("修改成功！"));
+			on_Return_clicked();
+		}
+
+		SetUserList(_Userlst);
+	}
+	
 }
 
 void MathLabLoginWidget::on_Return_clicked()

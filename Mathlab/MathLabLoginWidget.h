@@ -18,6 +18,8 @@ public:
 
 	UserInfoPtr GetCurrentUser() const;
 
+	void Init();
+
 public slots:
 	void on_Longin_clicked();
 
@@ -48,6 +50,11 @@ private:
 	UserInfoList _Userlst;
 
 	UserInfoPtr _user;
+
+	//管理员信息
+	QString _ManagerName;
+	QString _ManagerPwd;
+
 };
 
 #endif // MATHLABLOGINWIDGET_H

@@ -11,7 +11,9 @@ enum UsersTpye
 {
 	Teachers,
 
-	Students
+	Students,
+
+	Manager
 };
 
 //用户信息

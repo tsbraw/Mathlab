@@ -171,6 +171,18 @@ void MathLab::OnDelCourseClicked()
 		CourseInfoList::iterator courseIt = std::find_if(_DateList[DayTime].begin(), _DateList[DayTime].end(), boost::bind(&CourseInfo::CourseIdx, _1) == item->row());
 		if (courseIt != _DateList[DayTime].end())
 		{
+			CourseInfoPtr courseinfo = *courseIt;
+			if (courseinfo)
+			{
+				if (courseinfo->TeacherName != _myInfo->UserClass && _myInfo->Usertype != Manager)
+				{
+					QMessageBox::warning(this, QString::fromLocal8Bit("无权限删除"),  QString::fromLocal8Bit("该用户无权限删除当前选课！")
+						, QMessageBox::Ok, QMessageBox::Cancel);
+					return;
+				}
+
+			}
+			
 			courseIt = _DateList[DayTime].erase(courseIt);
 		}
 
@@ -208,6 +220,12 @@ void MathLab::OnTableWidgetDouble(QTableWidgetItem *item)
 				CourseInfoPtr courseInfo = *it;
 				if (courseInfo)
 				{
+					if (courseInfo->TeacherName != _myInfo->UserClass && _myInfo->Usertype != Manager)
+					{
+						QMessageBox::warning(this, QString::fromLocal8Bit("无权限修改"),  QString::fromLocal8Bit("该用户无权限修改当前选课！")
+							, QMessageBox::Ok, QMessageBox::Cancel);
+						return;
+					}
 					EditWidget->SetCourseInfo(courseInfo);
 
 					if (EditWidget->exec() == QDialog::Accepted)
@@ -347,7 +365,7 @@ void MathLab::InitTreeWidget()
 	ui.treeWidget_Class->expandAll();
 
 	connect(ui.treeWidget_Class, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(on_treeWidget_itemClicked(QTreeWidgetItem *, int)));
-	if (_myInfo->Usertype == Teachers)
+	if (_myInfo->Usertype == Manager)
 	{
 		connect(ui.treeWidget_Class,SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(on_treeWidget_customContextMenuRequested(const QPoint&)));
 	}
