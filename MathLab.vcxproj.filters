@@ -44,7 +44,19 @@
     <ClCompile Include="Mathlab\MathLabDataService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mathlab\MathLabAddWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathlab\MathLabLoginWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Mathlab\moc_MathLab.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathlab\moc_MathLabAddWidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathlab\moc_MathLabLoginWidget.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -54,22 +66,34 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Mathlab\MathLab.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Mathlab\MathLabDataService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Mathlab\MathLabTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Mathlab\ui_MathLab.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Mathlab\MathLab.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="Mathlab\MathLabAddWidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Mathlab\MathLabLoginWidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Mathlab\MathLab.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Mathlab\MathLabAddWidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Mathlab\MathLabLoginWidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Mathlab\Mathlab.rc" />
   </ItemGroup>
 </Project>

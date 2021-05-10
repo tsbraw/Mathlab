@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'MathLabAddWidgetHp9076.ui'
+** Form generated from reading UI file 'MathLabAddWidget.ui'
 **
-** Created: Sat Apr 17 19:27:10 2021
+** Created: Mon May 10 22:17:29 2021
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MATHLABADDWIDGETHP9076_H
-#define MATHLABADDWIDGETHP9076_H
+#ifndef UI_MATHLABADDWIDGET_H
+#define UI_MATHLABADDWIDGET_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -115,4 +115,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MATHLABADDWIDGETHP9076_H
+#endif // UI_MATHLABADDWIDGET_H

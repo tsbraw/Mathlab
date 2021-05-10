@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MathLabAddWidget.h'
 **
-** Created: Wed May 5 14:06:40 2021
+** Created: Mon May 10 22:17:29 2021
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!

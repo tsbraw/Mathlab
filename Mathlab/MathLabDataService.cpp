@@ -10,7 +10,7 @@
 
 MathLabDataService::MathLabDataService()
 {
-
+	Init();
 	ReadDataFromDB();
 }
 
@@ -53,11 +53,41 @@ void MathLabDataService::SetUserList(UserInfoList userLst)
 void MathLabDataService::Init()
 {
 	pugi::xml_document doc;
+
+	pugi::xml_parse_result result = doc.load_file("D:/Desktop/proC++/MathLab/Mathlab/config/DataServiceConfig.xml");
+
+	if (result.status == pugi::status_ok)
+	{
+		pugi::xml_node managerNode = doc.child("DataService");
+		if (managerNode)
+		{
+			pugi::xml_node HostName = managerNode.child("Host");
+			pugi::xml_node Port = managerNode.child("Port");
+			pugi::xml_node DBName = managerNode.child("DBName");
+			pugi::xml_node UserName = managerNode.child("UserName");
+			pugi::xml_node Pwd = managerNode.child("Password");
+
+			if (HostName && Port && DBName && UserName && Pwd)
+			{
+				_Host = HostName.text().as_string();
+				_Port = Port.text().as_int();
+				_DBName = DBName.text().as_string();
+				_User = UserName.text().as_string();
+				_Pwd = Pwd.text().as_string();
+
+				InitDB();
+			}
+		}
+	}
+	else
+	{
+		/*std::cout << "Load ManagerInfo Failed!" << std::endl;*/
+	}
 }
 
 bool MathLabDataService::InitDB()
 {
-	_DataBase = QSqlDatabase::addDatabase("QOCI");
+	_DataBase = QSqlDatabase::addDatabase("QODBC");
 
 	_DataBase.setHostName(_Host);
 	_DataBase.setPort(_Port);

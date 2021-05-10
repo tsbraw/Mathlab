@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="gb2312"?>
+<DataService>
+	<Host>192.168.199.247</Host>
+	<Port>1521</Port>
+	<DBName>ORCL</DBName>
+	<UserName>system</UserName>
+	<Password>Zs010731</Password>
+</DataService>

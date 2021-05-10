@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'MathLabLoginWidgetHp8496.ui'
+** Form generated from reading UI file 'MathLabLoginWidget.ui'
 **
-** Created: Wed Apr 21 20:16:56 2021
+** Created: Mon May 10 22:17:29 2021
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MATHLABLOGINWIDGETHP8496_H
-#define MATHLABLOGINWIDGETHP8496_H
+#ifndef UI_MATHLABLOGINWIDGET_H
+#define UI_MATHLABLOGINWIDGET_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -51,7 +51,7 @@ public:
     {
         if (MathLabLoginWidget->objectName().isEmpty())
             MathLabLoginWidget->setObjectName(QString::fromUtf8("MathLabLoginWidget"));
-        MathLabLoginWidget->resize(529, 388);
+        MathLabLoginWidget->resize(529, 351);
         gridLayout = new QGridLayout(MathLabLoginWidget);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -182,4 +182,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MATHLABLOGINWIDGETHP8496_H
+#endif // UI_MATHLABLOGINWIDGET_H

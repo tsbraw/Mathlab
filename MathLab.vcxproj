@@ -22,19 +22,63 @@
     <None Include="MathLab.qrc" />
     <CustomBuild Include="Mathlab\MathLab.ui">
       <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe $(MSBuildProjectDirectory)\Mathlab\MathLab.ui -o $(MSBuildProjectDirectory)\Mathlab\ui_MathLab.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UIC MathLab.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(MSBuildProjectDirectory)\Mathlab\ui_MathLab.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;MathLab.ui;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="Mathlab\MathLabAddWidget.ui">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe $(MSBuildProjectDirectory)\Mathlab\MathLabAddWidget.ui -o $(MSBuildProjectDirectory)\Mathlab\ui_MathLabAddWidget.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UIC MathLabAddWidget.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ui_MathLabAddWidget.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;MathLabAddWidget.ui;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="Mathlab\MathLabLoginWidget.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;MathLabLoginWidget.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ui_MathLabLoginWidget.h;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UIC MathLabLoginWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe $(MSBuildProjectDirectory)\Mathlab\MathLabLoginWidget.ui -o $(MSBuildProjectDirectory)\Mathlab\ui_MathLabLoginWidget.h</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mathlab\main.cpp" />
     <ClCompile Include="Mathlab\MathLab.cpp" />
+    <ClCompile Include="Mathlab\MathLabAddWidget.cpp" />
     <ClCompile Include="Mathlab\MathLabDataService.cpp" />
+    <ClCompile Include="Mathlab\MathLabLoginWidget.cpp" />
     <ClCompile Include="Mathlab\moc_MathLab.cpp" />
+    <ClCompile Include="Mathlab\moc_MathLabAddWidget.cpp" />
+    <ClCompile Include="Mathlab\moc_MathLabLoginWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Mathlab\MathLab.h" />
+    <CustomBuild Include="Mathlab\MathLab.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe $(MSBuildProjectDirectory)\Mathlab\MathLab.h -o $(MSBuildProjectDirectory)\Mathlab\moc_MathLab.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC MathLab.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">moc_MathLab.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;MathLab.h;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="Mathlab\MathLabAddWidget.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe" -o ".\GeneratedFiles\moc_$(InputName).h" "$(InputPath)"</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc'ing $(InputFileName)...</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">".\GeneratedFiles\moc_$(InputName).cpp" </AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe $(MSBuildProjectDirectory)\Mathlab\MathLabAddWidget.h -o $(MSBuildProjectDirectory)\Mathlab\moc_MathLabAddWidget.cpp</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">moc_MathLabAddWidget.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;MathLabAddWidget.h;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC MathLabAddWidget.h</Message>
+    </CustomBuild>
     <ClInclude Include="Mathlab\MathLabDataService.h" />
+    <CustomBuild Include="Mathlab\MathLabLoginWidget.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC MathLabLoginWidget.h</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe $(MSBuildProjectDirectory)\Mathlab\MathLabLoginWidget.h -o $(MSBuildProjectDirectory)\Mathlab\moc_MathLabLoginWidget.cpp</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">moc_MathLabLoginWidget.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;MathLabLoginWidget.h;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
     <ClInclude Include="Mathlab\MathLabTypes.h" />
-    <ClInclude Include="Mathlab\ui_MathLab.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Mathlab\Mathlab.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1E536376-BB3C-42C7-BB1C-EE81576A7327}</ProjectGuid>
@@ -63,11 +107,12 @@
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\obj\$(IntDir)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;F:\pugixml-1.11\src;.;F:\Qt\Qt4.8\include;.\GeneratedFiles\$(ConfigurationName);F:\Qt\Qt4.8\include\QtCore;F:\Qt\Qt4.8\include\QtGui;F:\boost_1_75_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;F:\pugixml-1.11\src;.;F:\Qt\Qt4.8\include;.\GeneratedFiles\$(ConfigurationName);F:\Qt\Qt4.8\include\QtCore;F:\Qt\Qt4.8\include\QtSql;F:\Qt\Qt4.8\include\QtGui;F:\boost_1_75_0;.\Mathlab;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -76,15 +121,15 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>F:\Qt\Qt4.8\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>F:\Qt\Qt4.8\lib;F:\Qt\Qt4.8\plugins\sqldrivers;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;QtCored4.lib;QtGuid4.lib;QtSqld4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qsqlodbcd4.lib;qtmaind.lib;QtCored4.lib;QtGuid4.lib;QtSqld4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;F:\Qt\Qt4.8\include;.\GeneratedFiles\$(ConfigurationName);F:\Qt\Qt4.8\include\QtCore;F:\Qt\Qt4.8\include\QtGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;F:\Qt\Qt4.8\include;.\GeneratedFiles\$(ConfigurationName);F:\Qt\Qt4.8\include\QtCore;F:\Qt\Qt4.8\include\QtGui;.\Mathlab;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>
       </DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -100,16 +145,18 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>F:\Qt\Qt4.8\include;F:\Qt\Qt4.8\include\QtGui;F:\Qt\Qt4.8\include\QtCore</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\Qt\4.8.4\include;F:\Qt\4.8.4\include\QtGui;F:\Qt\4.8.4\include\QtCore;F:\Qt\4.8.4\include\QtSql;$(SolutionDir)\Mathlab\;F:\pugixml-1.11\src;F:\boost_1_56_0;.\</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>F:\Qt\Qt4.8\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>QtCored4.lib;QtGuid4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:\boost\vc100\lib;F:\Qt\4.8.4\lib;F:\Qt\4.8.4\plugins\sqldrivers</AdditionalLibraryDirectories>
+      <AdditionalDependencies>QtSqld4.lib;qsqlodbcd4.lib;QtCored4.lib;QtGuid4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Mathlab;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
