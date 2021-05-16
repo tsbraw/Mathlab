@@ -12,8 +12,8 @@ public:
 	CourseInfoList GetCourseList() const;
 	void SetCourseList(CourseInfoList CourseList);
 
-	LabCourseInoList GetLabCourseList() const;
-	void SetDateCourseList(LabCourseInoList labList);
+	LabCourseInoList GetLabCourseList();
+	void SetLabCourseList(LabCourseInoList labList);
 
 	UserInfoList GetUserList() const;
 	void SetUserList(UserInfoList userLst);
@@ -30,12 +30,9 @@ public:
 
 	void WriteDataToDB();
 
-
-	LabCourseInoList _LabCourseList;
-
 private:
+	LabCourseInoList _LabCourseList;
 	CourseInfoList _CourseList;
-
 	UserInfoList _UserList;
 
 	QString _Host;

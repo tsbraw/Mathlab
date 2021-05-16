@@ -136,7 +136,8 @@ void MathLab::OnNewCourse(QString classRoom, QTableWidgetItem * item)
 		CourseInfoPtr courseInfo = addWidget->GetCourseInfo();
 		if (courseInfo)
 		{
-			QDateTime DayTime = ui.tableWidget_MathClass->horizontalHeaderItem(col)->data(Qt::UserRole).value<QDateTime>();
+			QString Da = ui.tableWidget_MathClass->horizontalHeaderItem(col)->data(Qt::UserRole).value<QString>();
+			QDateTime DayTime = QDateTime::fromString(Da, "yyyy.MM.dd");
 			courseInfo->TimeDay = DayTime;
 			courseInfo->TeacherName = _myInfo->UserClass;
 			courseInfo->CourseIdx = item->row();
@@ -146,6 +147,7 @@ void MathLab::OnNewCourse(QString classRoom, QTableWidgetItem * item)
 
 
 		_LabList[classRoom] = _DateList;
+		SetLabCourseList(_LabList);
 
 		UpdateTable();
 	}
@@ -167,7 +169,8 @@ void MathLab::OnDelCourseClicked()
 	}
 	else
 	{
-		QDateTime DayTime = ui.tableWidget_MathClass->horizontalHeaderItem(item->column())->data(Qt::UserRole).value<QDateTime>();
+		QString Da = ui.tableWidget_MathClass->horizontalHeaderItem(item->column())->data(Qt::UserRole).value<QString>();
+		QDateTime DayTime = QDateTime::fromString(Da, "yyyy.MM.dd");
 		CourseInfoList::iterator courseIt = std::find_if(_DateList[DayTime].begin(), _DateList[DayTime].end(), boost::bind(&CourseInfo::CourseIdx, _1) == item->row());
 		if (courseIt != _DateList[DayTime].end())
 		{
@@ -211,7 +214,8 @@ void MathLab::OnTableWidgetDouble(QTableWidgetItem *item)
 		QString classRoom = trItem->text(0);
 		if (!item->text().isEmpty())
 		{
-			QDateTime DayTime = ui.tableWidget_MathClass->horizontalHeaderItem(item->column())->data(Qt::UserRole).value<QDateTime>();
+			QString Da = ui.tableWidget_MathClass->horizontalHeaderItem(item->column())->data(Qt::UserRole).value<QString>();
+			QDateTime DayTime = QDateTime::fromString(Da, "yyyy.MM.dd");
 
 			MathLabAddWidget * EditWidget = new MathLabAddWidget();
 			CourseInfoList::iterator it = std::find_if(_DateList[DayTime].begin(), _DateList[DayTime].end(), boost::bind(&CourseInfo::CourseIdx, _1) == item->row());
@@ -239,6 +243,7 @@ void MathLab::OnTableWidgetDouble(QTableWidgetItem *item)
 						if (_LabList.find(trItem->text(0)) != _LabList.end())
 						{
 							_LabList.at(trItem->text(0)) = _DateList;
+							SetLabCourseList(_LabList);
 						}
 						UpdateTable();
 					}
@@ -300,7 +305,7 @@ QStringList MathLab::FillWeekTime(QDateTime CurTime, int weekday)
 
 		if (QTableWidgetItem * ia = ui.tableWidget_MathClass->horizontalHeaderItem(col - 1))
 		{
-			ui.tableWidget_MathClass->horizontalHeaderItem(col - 1)->setData(Qt::UserRole, QVariant::fromValue(NextTime));
+			ui.tableWidget_MathClass->horizontalHeaderItem(col - 1)->setData(Qt::UserRole, QVariant::fromValue(next_date));
 		}
 		
 	}
@@ -375,8 +380,8 @@ void MathLab::UpdateTable()
 {
 	for (int col = 0; col < 7; col++)
 	{
-		QDateTime DayTime = ui.tableWidget_MathClass->horizontalHeaderItem(col)->data(Qt::UserRole).value<QDateTime>();
-		QString Da = DayTime.toString("yyyy.MM.dd");
+		QString Da = ui.tableWidget_MathClass->horizontalHeaderItem(col)->data(Qt::UserRole).value<QString>();
+		QDateTime DayTime = QDateTime::fromString(Da, "yyyy.MM.dd");
 
 		CourseInfoList dateCourses;
 		if (_DateList[DayTime].size())

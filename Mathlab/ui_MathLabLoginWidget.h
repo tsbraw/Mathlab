@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MathLabLoginWidget.ui'
 **
-** Created: Mon May 10 22:17:29 2021
+** Created: Sun May 16 21:59:33 2021
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

@@ -1,7 +1,10 @@
 
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlError>
+#include <QVariant>
 #include <QMessageBox>
+#include <boost/smart_ptr/make_shared.hpp>
+#include <boost/bind.hpp>
 #include <pugixml.hpp>
 #include <pugixml.cpp>
 
@@ -17,7 +20,8 @@ MathLabDataService::MathLabDataService()
 
 MathLabDataService::~MathLabDataService(void)
 {
-
+	_CourseList.clear();
+	_LabCourseList.clear();
 }
 
 CourseInfoList MathLabDataService::GetCourseList() const
@@ -28,16 +32,64 @@ CourseInfoList MathLabDataService::GetCourseList() const
 void MathLabDataService::SetCourseList(CourseInfoList CourseList)
 {
 	_CourseList = CourseList;
+
+	WriteDataToDB();
 }
 
-LabCourseInoList MathLabDataService::GetLabCourseList() const
+LabCourseInoList MathLabDataService::GetLabCourseList()
 {
+	std::map<QString, CourseInfoList> LabCourses;
+	CourseInfoList::const_iterator it = _CourseList.begin();
+	for (; it != _CourseList.end(); it++)
+	{
+		CourseInfoPtr courseInfo = *it;
+		if (courseInfo)
+		{
+			QString Lab = courseInfo->LabName;
+
+			LabCourses[Lab].push_back(courseInfo);
+		}
+	}
+
+	std::map<QString, CourseInfoList>::iterator mapIt = LabCourses.begin();
+	for (; mapIt != LabCourses.end(); mapIt++)
+	{
+		QString LabName = mapIt->first;
+		DateCourseInfoList dateMap;
+		CourseInfoList courLst = mapIt->second;
+		CourseInfoList::const_iterator courIt = courLst.begin();
+		for (; courIt != courLst.end(); courIt++)
+		{
+			CourseInfoPtr courInfo = *courIt;
+			if (courInfo)
+			{
+				QDateTime dateT = courInfo->TimeDay;
+
+				dateMap[dateT].push_back(courInfo);
+			}
+		}
+		_LabCourseList[LabName] = dateMap;
+	}
+
 	return _LabCourseList;
 }
 
-void MathLabDataService::SetDateCourseList(LabCourseInoList labList)
+void MathLabDataService::SetLabCourseList(LabCourseInoList labList)
 {
 	_LabCourseList = labList;
+
+	CourseInfoList courLst;
+	LabCourseInoList::iterator labIt = _LabCourseList.begin();
+	for (; labIt != _LabCourseList.end(); labIt++)
+	{
+		DateCourseInfoList dateLst = labIt->second;
+		DateCourseInfoList::iterator dateIt = dateLst.begin();
+		for (; dateIt != dateLst.end(); dateIt++)
+		{
+			std::copy(dateIt->second.begin(), dateIt->second.end(), std::back_inserter(courLst));
+		}
+	}
+	SetCourseList(courLst);
 }
 
 UserInfoList MathLabDataService::GetUserList() const
@@ -48,6 +100,8 @@ UserInfoList MathLabDataService::GetUserList() const
 void MathLabDataService::SetUserList(UserInfoList userLst)
 {
 	_UserList = userLst;
+
+	WriteDataToDB();
 }
 
 void MathLabDataService::Init()
@@ -95,7 +149,7 @@ bool MathLabDataService::InitDB()
 	_DataBase.setUserName(_User);
 	_DataBase.setPassword(_Pwd);
 
-	_DataBase.setConnectOptions("SQL_ATTR_LOGIN_TIMEOUT=5;SQL_ATTR_CONNECT_TIMROUT=5");
+	_DataBase.setConnectOptions("SQL_ATTR_LOGIN_TIMEOUT=5;SQL_ATTR_CONNECT_TIMEOUT=5");
 
 	bool isopen = _DataBase.open();
 
@@ -111,36 +165,97 @@ bool MathLabDataService::InitDB()
 
 		return false;
 	}
-
-
-	// 下面来创建表
-	// 如果 MySQL 数据库中已经存在同名的表，那么下面的代码不会执行
-	QSqlQuery query(_DataBase);
-
-	// 使数据库支持中文
-	query.exec("SET NAMES 'Latin1'");
-	// 创建 course 表
-	query.exec("create table course (id int primary key, "
-		"name varchar(20), teacher varchar(20))");
-	query.exec("insert into course values(0, '数学', '张老师')");
-	query.exec("insert into course values(1, '语文', '李老师')");
-	query.exec("insert into course values(2, '英语', '王老师')");
-	return true;
 }
 
 void MathLabDataService::ReadDataFromDB()
 {
 	if (_DataBase.isOpen())
 	{
-		QSqlQuery query(_DataBase);
+		QString usersql = "Select * from  USERINFO t";
 
-		bool isOK= query.prepare("CALL READ_DATA()");
+		QSqlQuery userQuery(usersql, _DataBase);
 
+		_UserList.clear();
+		while (userQuery.next())
+		{
+			UserInfoPtr userInfo = boost::make_shared<UserInfo>();
+			//读取数据
+			userInfo->UserName = userQuery.value(0).toString();
+			userInfo->Usertype = (UsersTpye)userQuery.value(1).toInt();
+			userInfo->UserPwd = userQuery.value(2).toString();
+			userInfo->UserClass = userQuery.value(3).toString();
+			
+			_UserList.push_back(userInfo);
+		}
 
+		QString coursesql = "select * from COURSEINFO t";
+
+		QSqlQuery courseQuery(coursesql, _DataBase);
+
+		_CourseList.clear();
+		while (courseQuery.next())
+		{
+			CourseInfoPtr courseInfo = boost::make_shared<CourseInfo>();
+			//读取数据
+			courseInfo->CourseName = courseQuery.value(0).toString();
+			courseInfo->TeacherName = courseQuery.value(1).toString();
+
+			QString ClassText = courseQuery.value(2).toString();
+			QStringList Classes = ClassText.split(";");
+			courseInfo->ClassNames.clear();
+			for (int i = 0; i < Classes.size(); i++)
+			{
+				courseInfo->ClassNames.push_back(Classes[i]);
+			}
+
+			courseInfo->ProjectInfo = courseQuery.value(3).toString();
+			courseInfo->TimeDay = QDateTime::fromString(courseQuery.value(4).toString(), "yyyy.MM.dd");
+			courseInfo->LabName = courseQuery.value(5).toString();
+			courseInfo->CourseIdx = courseQuery.value(6).toInt();
+
+			_CourseList.push_back(courseInfo);
+		}
 	}
 }
 
 void MathLabDataService::WriteDataToDB()
 {
+	if (_DataBase.isOpen())
+	{
+		//QString usersql = "Truncate table USERINFO t reuse storage";
 
+		//QSqlQuery userQuery(usersql, _DataBase);
+
+		UserInfoList::iterator userIt = _UserList.begin();
+		for (; userIt != _UserList.end(); userIt++)
+		{
+			UserInfoPtr usr = *userIt;
+
+			// 写入数据
+			QString writeSql =  "insert into USERINFO(" + usr->UserName + "," + (int)usr->Usertype + "," + usr->UserPwd + "," + usr->UserClass + ") select * from USERINFO";
+			//"insert into USERINFO(username, usertype, userpwd, userclass) values('Jim', '28')";
+			_DataBase.exec(writeSql);
+		}
+
+
+// 		QString courSql = "select t.*, t.rowid from USERINFO t";
+// 		QSqlQuery courseQuery(courSql, _DataBase);
+
+		CourseInfoList::iterator courIt = _CourseList.begin();
+		for (; courIt != _CourseList.end(); courIt++)
+		{
+			CourseInfoPtr cour = *courIt;
+
+			QStringList Classes;
+			for (int i = 0; i < cour->ClassNames.size(); i++)
+			{
+				Classes.push_back(cour->ClassNames.at(i));
+			}
+			QString ClassStr = Classes.join(";");
+			// 写入数据
+			QString wrSql =  "insert into COURSEINFO(coursename,teachername,classnames,projectinfo,timeday,labname, courseidx) values(" + cour->CourseName + "," + cour->TeacherName + "," + ClassStr + "," + cour->ProjectInfo + "," + cour->TimeDay.toString("yyyy.MM.dd") + "," + cour->LabName + "," + cour->CourseIdx + ")";
+			//_DataBase.exec("insert into COURSEINFO(coursename,teachername,classnames,projectinfo,timeday,labname, courseidx) values('test', 'Make', '242', 'test prj', '2021.05.15', '09101', '3')");
+			_DataBase.exec(wrSql);
+		}
+	}
 }
