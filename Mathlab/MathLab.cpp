@@ -9,13 +9,13 @@
 
 #include "MathLabAddWidget.h"
 #include "MathLabLoginWidget.h"
+#include "MathLabDataService.h"
 #include "MathLab.h"
 
 Q_DECLARE_METATYPE(CourseInfoPtr);
 
 MathLab::MathLab(QWidget *parent, Qt::WFlags flags, UserInfoPtr userinfo)
 	: QMainWindow(parent, flags)
-	, MathLabDataService()
 {
 	ui.setupUi(this);
 
@@ -67,7 +67,7 @@ void MathLab::Init()
 
 	pSystemTray = new QSystemTrayIcon(this);
 
-	_LabList = GetLabCourseList();
+	_LabList = MathLabDataService::Instance()->GetLabCourseList();
 
 	QAction * cInfo = new QAction(QString::fromLocal8Bit("课程安排"),this);
 	connect(cInfo,SIGNAL(triggered()),this,SLOT(showMineCourses()));
@@ -147,7 +147,7 @@ void MathLab::OnNewCourse(QString classRoom, QTableWidgetItem * item)
 
 
 		_LabList[classRoom] = _DateList;
-		SetLabCourseList(_LabList);
+		MathLabDataService::Instance()->SetLabCourseList(_LabList);
 
 		UpdateTable();
 	}
@@ -243,7 +243,7 @@ void MathLab::OnTableWidgetDouble(QTableWidgetItem *item)
 						if (_LabList.find(trItem->text(0)) != _LabList.end())
 						{
 							_LabList.at(trItem->text(0)) = _DateList;
-							SetLabCourseList(_LabList);
+							MathLabDataService::Instance()->SetLabCourseList(_LabList);
 						}
 						UpdateTable();
 					}

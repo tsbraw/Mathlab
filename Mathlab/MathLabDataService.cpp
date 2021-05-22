@@ -5,11 +5,22 @@
 #include <QMessageBox>
 #include <boost/smart_ptr/make_shared.hpp>
 #include <boost/bind.hpp>
+#include <boost/thread/lock_guard.hpp>
 #include <pugixml.hpp>
 #include <pugixml.cpp>
 
+// #ifdef _MSC_VER extern "C" void tss_cleanup_implemented(void){}
+// #include <libs/thread/src/win32/thread.cpp>
+// #include <libs/thread/src/win32/tss_dll.cpp>
+// #include <libs/thread/src/win32/tss_pe.cpp>
+// #else
+// #include <libs/thread/src/pthread/thread.cpp>
+// #include <libs/thread/src/pthread/once.cpp>
+// #endif
+
 #include "MathLabDataService.h"
 
+MathLabDataService* MathLabDataService::_instance = nullptr;
 
 MathLabDataService::MathLabDataService()
 {
@@ -22,6 +33,18 @@ MathLabDataService::~MathLabDataService(void)
 {
 	_CourseList.clear();
 	_LabCourseList.clear();
+	if (_instance)
+	{
+		delete _instance;
+	}
+}
+
+
+MathLabDataService * MathLabDataService::Instance()
+{
+	if ( _instance == NULL )    
+		_instance = new MathLabDataService();  
+	return _instance;
 }
 
 CourseInfoList MathLabDataService::GetCourseList() const
@@ -171,6 +194,8 @@ void MathLabDataService::ReadDataFromDB()
 {
 	if (_DataBase.isOpen())
 	{
+		boost::lock_guard<boost::mutex> lock(_ReadMutex); //读取锁
+
 		QString usersql = "Select * from  USERINFO t";
 
 		QSqlQuery userQuery(usersql, _DataBase);
@@ -222,6 +247,7 @@ void MathLabDataService::WriteUserInfoToDB()
 {
 	if (_DataBase.isOpen())
 	{
+		boost::lock_guard<boost::mutex> lock(_WriteMutex); //写入锁
 		//QString usersql = "Truncate table USERINFO t reuse storage";
 
 		//QSqlQuery userQuery(usersql, _DataBase);
@@ -242,6 +268,8 @@ void MathLabDataService::WriteCourseInfoToDB()
 {
 	if (_DataBase.isOpen())
 	{
+		boost::lock_guard<boost::mutex> lock(_WriteMutex); //写入锁
+
 		CourseInfoList::iterator courIt = _CourseList.begin();
 		for (; courIt != _CourseList.end(); courIt++)
 		{

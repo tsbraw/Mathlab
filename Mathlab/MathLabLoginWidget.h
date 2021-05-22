@@ -2,10 +2,10 @@
 #define MATHLABLOGINWIDGET_H
 
 #include <QDialog>
-#include "MathLabDataService.h"
+#include "MathLabTypes.h"
 #include "ui_MathLabLoginWidget.h"
 
-class MathLabLoginWidget : public QDialog, public MathLabDataService
+class MathLabLoginWidget : public QDialog
 {
 	Q_OBJECT
 

@@ -2,13 +2,12 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/smart_ptr/make_shared.hpp>
 #include <pugixml.hpp>
-#include "MathLabTypes.h"
+#include "MathLabDataService.h"
 #include "MathLabLoginWidget.h"
 
 
 MathLabLoginWidget::MathLabLoginWidget(QWidget *parent)
 	: QDialog(parent)
-	, MathLabDataService()
 {
 	ui.setupUi(this);
 
@@ -41,7 +40,7 @@ MathLabLoginWidget::MathLabLoginWidget(QWidget *parent)
 
 	_IsRegister = false;
 
-	_Userlst = GetUserList();
+	_Userlst = MathLabDataService::Instance()->GetUserList();
 	_user = boost::make_shared<UserInfo>();
 
 	connect(ui.pushButton_login, SIGNAL(clicked()), this, SLOT(on_Longin_clicked()));
@@ -119,7 +118,7 @@ void MathLabLoginWidget::on_Longin_clicked()
 		_user->UserName = userName;
 		_user->UserPwd = userPwd;
 		_user->Usertype = Manager;
-
+		_user->UserClass = "manager";
 		this->accept();
 	}
 	else
@@ -266,7 +265,7 @@ void MathLabLoginWidget::on_Yes_clicked()
 			on_Return_clicked();
 		}
 
-		SetUserList(_Userlst);
+		MathLabDataService::Instance()->SetUserList(_Userlst);
 	}
 	
 }

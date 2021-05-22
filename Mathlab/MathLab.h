@@ -6,10 +6,9 @@
 #include <QCloseEvent>
 
 #include "MathLabTypes.h"
-#include "MathLabDataService.h"
 #include "ui_MathLab.h"
 
-class MathLab : public QMainWindow, public MathLabDataService
+class MathLab : public QMainWindow
 {
 	Q_OBJECT
 

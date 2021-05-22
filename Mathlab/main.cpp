@@ -5,10 +5,11 @@
 #include <QtGui/QApplication>
 #include "MathLabLoginWidget.h"
 #include "MathLab.h"
-
+#include <boost/timer.hpp>
 
 int main(int argc, char *argv[])
 {
+	boost::timer t;
 	QApplication a(argc, argv);
 
 	QTextCodec::setCodecForTr(QTextCodec::codecForLocale());
@@ -24,6 +25,8 @@ int main(int argc, char *argv[])
 	sema.release();
 
 	MathLabLoginWidget logindlg;
+
+	double tir = t.elapsed();
 	if(logindlg.exec() == QDialog::Accepted) //利用 Accepted 信号判断 Longin 是否被按
 	{
 		UserInfoPtr tp = logindlg.GetCurrentUser();

@@ -147,9 +147,11 @@
     <ClCompile>
       <AdditionalIncludeDirectories>F:\Qt\4.8.4\include;F:\Qt\4.8.4\include\QtGui;F:\Qt\4.8.4\include\QtCore;F:\Qt\4.8.4\include\QtSql;$(SolutionDir)\Mathlab\;F:\pugixml-1.11\src;F:\boost_1_56_0;.\</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>F:\boost\vc100\lib;F:\Qt\4.8.4\lib;F:\Qt\4.8.4\plugins\sqldrivers</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>F:\boost\vc100\x64\lib;F:\Qt\4.8.4\lib;F:\Qt\4.8.4\plugins\sqldrivers</AdditionalLibraryDirectories>
       <AdditionalDependencies>QtSqld4.lib;qsqlodbcd4.lib;QtCored4.lib;QtGuid4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>

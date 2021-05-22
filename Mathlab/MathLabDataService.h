@@ -1,13 +1,24 @@
 #pragma once
 
+#include <boost/thread.hpp>
+#include <boost/thread/mutex.hpp>
+
 #include <QtSql/QSqlDatabase>
 #include "MathLabTypes.h"
+
 
 class MathLabDataService
 {
 public:
-	MathLabDataService();
 	~MathLabDataService(void);
+
+private:
+	MathLabDataService();
+
+	static MathLabDataService * _instance;
+
+public:
+	static MathLabDataService *Instance();
 
 	CourseInfoList GetCourseList() const;
 	void SetCourseList(CourseInfoList CourseList);
@@ -43,5 +54,8 @@ private:
 	QString _Pwd;
 
 	QSqlDatabase _DataBase;
+
+	boost::mutex _ReadMutex;
+	boost::mutex _WriteMutex;
 };
 
