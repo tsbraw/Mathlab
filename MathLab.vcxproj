@@ -152,6 +152,8 @@
       <AdditionalLibraryDirectories>F:\boost\vc100\lib;F:\Qt\4.8.4\lib;F:\Qt\4.8.4\plugins\sqldrivers</AdditionalLibraryDirectories>
       <AdditionalDependencies>QtSqld4.lib;qsqlodbcd4.lib;QtCored4.lib;QtGuid4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

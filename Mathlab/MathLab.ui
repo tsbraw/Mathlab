@@ -162,6 +162,14 @@
    <addaction name="menu_search"/>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>dateEdit</tabstop>
+  <tabstop>pushButton_resetDate</tabstop>
+  <tabstop>pushButton_new</tabstop>
+  <tabstop>pushButton_del</tabstop>
+  <tabstop>treeWidget_Class</tabstop>
+  <tabstop>tableWidget_MathClass</tabstop>
+ </tabstops>
  <resources>
   <include location="MathLab.qrc"/>
  </resources>

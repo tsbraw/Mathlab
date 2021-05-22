@@ -74,6 +74,13 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>lineEdit_Course</tabstop>
+  <tabstop>lineEdit_Classes</tabstop>
+  <tabstop>lineEdit_instruction</tabstop>
+  <tabstop>pushButton_Ok</tabstop>
+  <tabstop>pushButton_Cancel</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

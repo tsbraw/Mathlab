@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>529</width>
-    <height>351</height>
+    <height>388</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -175,6 +175,19 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>lineEdit_Name</tabstop>
+  <tabstop>lineEdit_Password</tabstop>
+  <tabstop>lineEdit_Repwd</tabstop>
+  <tabstop>lineEdit_Class</tabstop>
+  <tabstop>pushButton_login</tabstop>
+  <tabstop>pushButton_register</tabstop>
+  <tabstop>pushButton_edit</tabstop>
+  <tabstop>pushButton_Yes</tabstop>
+  <tabstop>pushButton_return</tabstop>
+  <tabstop>checkBox_stu</tabstop>
+  <tabstop>checkBox_tea</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

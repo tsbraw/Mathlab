@@ -28,7 +28,8 @@ public:
 
 	void ReadDataFromDB();
 
-	void WriteDataToDB();
+	void WriteUserInfoToDB();
+	void WriteCourseInfoToDB();
 
 private:
 	LabCourseInoList _LabCourseList;

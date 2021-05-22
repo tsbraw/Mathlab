@@ -33,7 +33,7 @@ void MathLabDataService::SetCourseList(CourseInfoList CourseList)
 {
 	_CourseList = CourseList;
 
-	WriteDataToDB();
+	WriteCourseInfoToDB();
 }
 
 LabCourseInoList MathLabDataService::GetLabCourseList()
@@ -101,7 +101,7 @@ void MathLabDataService::SetUserList(UserInfoList userLst)
 {
 	_UserList = userLst;
 
-	WriteDataToDB();
+	WriteUserInfoToDB();
 }
 
 void MathLabDataService::Init()
@@ -218,7 +218,7 @@ void MathLabDataService::ReadDataFromDB()
 	}
 }
 
-void MathLabDataService::WriteDataToDB()
+void MathLabDataService::WriteUserInfoToDB()
 {
 	if (_DataBase.isOpen())
 	{
@@ -232,15 +232,16 @@ void MathLabDataService::WriteDataToDB()
 			UserInfoPtr usr = *userIt;
 
 			// 写入数据
-			QString writeSql =  "insert into USERINFO(" + usr->UserName + "," + (int)usr->Usertype + "," + usr->UserPwd + "," + usr->UserClass + ") select * from USERINFO";
-			//"insert into USERINFO(username, usertype, userpwd, userclass) values('Jim', '28')";
+			QString writeSql =  "insert into USERINFO(username,usertype,userpwd,userclass) values(\'" + usr->UserName + "\',\'" + QString::number((int)usr->Usertype) + "\',\'" + usr->UserPwd + "\',\'" + usr->UserClass + "\')";
 			_DataBase.exec(writeSql);
-		}
+		}	
+	}
+}
 
-
-// 		QString courSql = "select t.*, t.rowid from USERINFO t";
-// 		QSqlQuery courseQuery(courSql, _DataBase);
-
+void MathLabDataService::WriteCourseInfoToDB()
+{
+	if (_DataBase.isOpen())
+	{
 		CourseInfoList::iterator courIt = _CourseList.begin();
 		for (; courIt != _CourseList.end(); courIt++)
 		{
@@ -253,8 +254,7 @@ void MathLabDataService::WriteDataToDB()
 			}
 			QString ClassStr = Classes.join(";");
 			// 写入数据
-			QString wrSql =  "insert into COURSEINFO(coursename,teachername,classnames,projectinfo,timeday,labname, courseidx) values(" + cour->CourseName + "," + cour->TeacherName + "," + ClassStr + "," + cour->ProjectInfo + "," + cour->TimeDay.toString("yyyy.MM.dd") + "," + cour->LabName + "," + cour->CourseIdx + ")";
-			//_DataBase.exec("insert into COURSEINFO(coursename,teachername,classnames,projectinfo,timeday,labname, courseidx) values('test', 'Make', '242', 'test prj', '2021.05.15', '09101', '3')");
+			QString wrSql =  "insert into COURSEINFO(coursename,teachername,classnames,projectinfo,timeday,labname, courseidx) values(\'" + cour->CourseName + "\',\'" + cour->TeacherName + "\',\'" + ClassStr + "\',\'" + cour->ProjectInfo + "\',\'" + cour->TimeDay.toString("yyyy.MM.dd") + "\',\'" + cour->LabName + "\',\'" + QString::number(cour->CourseIdx) + "\')";
 			_DataBase.exec(wrSql);
 		}
 	}
