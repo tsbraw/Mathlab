@@ -173,7 +173,7 @@ bool MathLabDataService::InitDB()
 	_DataBase.setPassword(_Pwd);
 
 	_DataBase.setConnectOptions("SQL_ATTR_LOGIN_TIMEOUT=5;SQL_ATTR_CONNECT_TIMEOUT=5");
-
+	auto aa = QSqlDatabase::drivers();
 	bool isopen = _DataBase.open();
 
 	if (isopen)
@@ -257,8 +257,13 @@ void MathLabDataService::WriteUserInfoToDB()
 		{
 			UserInfoPtr usr = *userIt;
 
+			//删除数据
+			QString delSql = "delete from USERINFO where username = \'" + usr->UserName + "\'";
+			_DataBase.exec(delSql);
+			
+
 			// 写入数据
-			QString writeSql =  "insert into USERINFO(username,usertype,userpwd,userclass) values(\'" + usr->UserName + "\',\'" + QString::number((int)usr->Usertype) + "\',\'" + usr->UserPwd + "\',\'" + usr->UserClass + "\')";
+			QString writeSql =  "insert into USERINFO(,usertype,userpwd,userclass) values(\'" + usr->UserName + "\',\'" + QString::number((int)usr->Usertype) + "\',\'" + usr->UserPwd + "\',\'" + usr->UserClass + "\')";
 			_DataBase.exec(writeSql);
 		}	
 	}
@@ -281,9 +286,26 @@ void MathLabDataService::WriteCourseInfoToDB()
 				Classes.push_back(cour->ClassNames.at(i));
 			}
 			QString ClassStr = Classes.join(";");
+
+			//删除数据
+			QString delSql = "delete from COURSEINFO where coursename = \'" + cour->CourseName + "\'";
+			_DataBase.exec(delSql);
+
 			// 写入数据
 			QString wrSql =  "insert into COURSEINFO(coursename,teachername,classnames,projectinfo,timeday,labname, courseidx) values(\'" + cour->CourseName + "\',\'" + cour->TeacherName + "\',\'" + ClassStr + "\',\'" + cour->ProjectInfo + "\',\'" + cour->TimeDay.toString("yyyy.MM.dd") + "\',\'" + cour->LabName + "\',\'" + QString::number(cour->CourseIdx) + "\')";
 			_DataBase.exec(wrSql);
 		}
+	}
+}
+
+void MathLabDataService::DeleteCourseByName(QString courseName)
+{
+	if (_DataBase.isOpen())
+	{
+		boost::lock_guard<boost::mutex> lock(_WriteMutex); //写入锁
+
+		//删除数据
+		QString delSql = "delete from COURSEINFO where coursename = \'" + courseName + "\'";
+		_DataBase.exec(delSql);
 	}
 }

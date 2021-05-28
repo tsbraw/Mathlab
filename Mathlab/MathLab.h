@@ -67,6 +67,9 @@ private slots:
 	// 查询指定班级的课程信息
 	void SearchClassCourse();
 
+	// 查询指定班级的课程信息
+	void SearchTeacherCourse();
+
 	// 查找具体班级课程信息/教师课程安排
 	void SearchByUserClass(CourseInfoList &courseLst, QString searchClass, bool teachersPaln);
 

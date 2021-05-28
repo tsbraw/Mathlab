@@ -71,14 +71,17 @@ void MathLab::Init()
 
 	QAction * cInfo = new QAction(QString::fromLocal8Bit("课程安排"),this);
 	connect(cInfo,SIGNAL(triggered()),this,SLOT(showMineCourses()));
-	QAction * quit = new QAction(QString::fromLocal8Bit("登出"),this);
+	QAction * quit = new QAction(QString::fromLocal8Bit("退出"),this);
 	connect(quit,SIGNAL(triggered()),this,SLOT(ReturnToLogin()));
 	ui.menu_mine->addAction(cInfo);
 	ui.menu_mine->addAction(quit);
 
 	QAction * sch = new QAction(QString::fromLocal8Bit("按班级"),this);
+	QAction * sch2 = new QAction(QString::fromLocal8Bit("按教师"),this);
 	connect(sch,SIGNAL(triggered()),this,SLOT(SearchClassCourse()));
+	connect(sch2,SIGNAL(triggered()),this,SLOT(SearchTeacherCourse()));
 	ui.menu_search->addAction(sch);
+	ui.menu_search->addAction(sch2);
 }
 
 MathLab::~MathLab()
@@ -186,6 +189,7 @@ void MathLab::OnDelCourseClicked()
 
 			}
 			
+			MathLabDataService::Instance()->DeleteCourseByName(courseinfo->CourseName);
 			courseIt = _DateList[DayTime].erase(courseIt);
 		}
 
@@ -616,6 +620,29 @@ void MathLab::SearchClassCourse()
 	if (ok && !text.isEmpty())
 	{
 		SearchByUserClass(courseLst, text, false);
+	}
+}
+
+void MathLab::SearchTeacherCourse()
+{
+	CourseInfoList courseLst;
+	LabCourseInoList::iterator it1 = _LabList.begin();
+	for (; it1 != _LabList.end(); it1++)
+	{
+		DateCourseInfoList dateLst = it1->second;
+		DateCourseInfoList::iterator it2 = dateLst.begin();
+		for (; it2 != dateLst.end(); it2++)
+		{
+			courseLst.insert(courseLst.end(),it2->second.begin(),it2->second.end());
+		}
+	}
+
+	bool ok = false;
+	QString text = QInputDialog::getText(this, tr("按教师查询"),tr("请输入查询教师名称："), QLineEdit::Normal, 0, &ok);
+
+	if (ok && !text.isEmpty())
+	{
+		SearchByUserClass(courseLst, text, true);
 	}
 }
 

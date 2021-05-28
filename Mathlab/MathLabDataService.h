@@ -39,8 +39,12 @@ public:
 
 	void ReadDataFromDB();
 
+	// 修改数据库写入
 	void WriteUserInfoToDB();
 	void WriteCourseInfoToDB();
+
+	// 删除指定课程
+	void DeleteCourseByName(QString courseName);
 
 private:
 	LabCourseInoList _LabCourseList;
