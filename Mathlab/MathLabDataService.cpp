@@ -263,7 +263,7 @@ void MathLabDataService::WriteUserInfoToDB()
 			
 
 			// 写入数据
-			QString writeSql =  "insert into USERINFO(,usertype,userpwd,userclass) values(\'" + usr->UserName + "\',\'" + QString::number((int)usr->Usertype) + "\',\'" + usr->UserPwd + "\',\'" + usr->UserClass + "\')";
+			QString writeSql =  "insert into USERINFO(username,usertype,userpwd,userclass) values(\'" + usr->UserName + "\',\'" + QString::number((int)usr->Usertype) + "\',\'" + usr->UserPwd + "\',\'" + usr->UserClass + "\')";
 			_DataBase.exec(writeSql);
 		}	
 	}
