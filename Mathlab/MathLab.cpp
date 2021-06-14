@@ -534,8 +534,9 @@ void MathLab::on_editItem_triggered()
 	QTreeWidgetItem * item = ui.treeWidget_Class->currentItem();
 	if (item)
 	{
+		QString preText = item->text(0);
 		bool ok;
-		QString text = QInputDialog::getText(this, tr("修改教室"),tr("请输入教室名称："), QLineEdit::Normal, item->text(0), &ok);
+		QString text = QInputDialog::getText(this, tr("修改教室"),tr("请输入教室名称："), QLineEdit::Normal, preText, &ok);
 
 		if (CheckExistInTree(text))
 		{
@@ -546,6 +547,22 @@ void MathLab::on_editItem_triggered()
 
 		if (ok && !text.isEmpty())
 		{
+			DateCourseInfoList DCList = _LabList[preText];
+			DateCourseInfoList::iterator DCIt = DCList.begin();
+			for (; DCIt != DCList.end(); DCIt++)
+			{
+				CourseInfoList CourList = DCIt->second;
+				CourseInfoList::iterator CourIt = CourList.begin();
+				for (; CourIt != CourList.end(); CourIt++)
+				{
+					CourseInfoPtr courseInfo = *CourIt;
+					courseInfo->LabName = text;
+				}
+			}
+
+			_LabList[text] = DCList;
+			_LabList[preText].clear();
+			
 			item->setText(0, text);
 		}
 	}
